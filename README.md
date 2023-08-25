@@ -1,2 +1,26 @@
-# llvm-source-extractor
-A C++ project that reads an LLVM IR file and extracts source-related information using the LLVM API.
+# LLVM IR Slicer and Source Extractor
+
+```text
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⡏⢠⣶⣶⣦⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⣿⣇⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⢻⣿⣿⡟⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⡿⠛⢉⣉⡉⠛⠻⠿⣧⣤⣉⠋⣀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⠁⢸⣿⣿⣿⣷⣦⡀⠀⠈⠉⠛⠻⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣧⡈⠻⢿⣿⣿⡿⠇⢠⣶⣦⣄⠀⠀⠀⠈⠉⠛⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣶⣤⣤⣤⣤⣶⣿⣿⡇⠙⠻⢶⣤⣀⠀⠀⠀⠀⠀⠉⠛⠿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠹⣿⣿⣦⣄⡀⠀⠀⠀⠀⠈⠻⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠙⣿⣿⣿⣿⣷⣦⣄⡀⠀⠀⠈⢿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣶⣤⣀⠈⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣬⣿⣿⣿⣿⣿⣿⣿⣿
+```
+
+A Go project that reads an LLVM IR file and extracts source-related information using the LLVM API.
+
+## Prerequisites
+
+- IR files compiled by LLVM 14.
+- Rust (if you are using it) must be v1.60.0 
