@@ -2,9 +2,20 @@ package main
 
 import (
 	"github.com/charmbracelet/log"
+	"github.com/llir/llvm/asm"
 	"github.com/spf13/cobra"
 	"os"
 )
+
+func irFileParser(inputFilePath string) {
+	_, err := asm.ParseFile(inputFilePath)
+	if err != nil {
+		log.Error(err.Error())
+		log.Errorf("Failed to parse IR file!")
+	}
+
+	return
+}
 
 func main() {
 	var inputFilePath string
@@ -13,7 +24,9 @@ func main() {
 		Use:   "llvm-source-slicer",
 		Short: "A tool to slice LLVM IR by basic blocks and get the corresponding source code snippets",
 		Run: func(cmd *cobra.Command, args []string) {
-			log.Infof("Input file %s\n", inputFilePath)
+			log.Infof("Input file %s", inputFilePath)
+			irFileParser(inputFilePath)
+
 		},
 	}
 
