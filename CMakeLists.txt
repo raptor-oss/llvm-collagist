@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.11) # 3.11 or higher for FetchContent
 cmake_policy(SET CMP0127 OLD)
 set(CMAKE_WARN_DEPRECATED OFF)
 
-project(LLVMFunctionExtractor)
+project(collagist)
 
 list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/llvm@13/")
 

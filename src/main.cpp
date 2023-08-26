@@ -1,7 +1,7 @@
-#include "CLI11.hpp"
+#include <CLI/CLI.hpp>
 
 using namespace std;
-
+using namespace CLI;
 int main(int argc, char **argv)
 {
     App app{ "LLVM IR Slicer and Source Extractor" };
