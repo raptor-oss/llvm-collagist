@@ -1,21 +1,27 @@
 #include <CLI/CLI.hpp>
+#include <utils/Logger.h>
 
 using namespace std;
 using namespace CLI;
+
 int main(int argc, char **argv)
 {
-    App app{ "LLVM IR Slicer and Source Extractor" };
+    // ----[ Setup logging ]----
+    Logger::setVerbosity(true);
 
+    // ----[ Setup CLI ]----
+    App app{ "LLVM IR Slicer and Source Extractor" };
     string inputFilePath;
     app.add_option("--input", inputFilePath, "The Path to LLVM IR file (*.ll)")->required();
 
+    // ----[ Parse arguments ]---- 
     try {
         app.parse(argc, argv);
     } catch (const ParseError &e) {
         return app.exit(e);
     }
 
-    cout << "Input file path: " << inputFilePath;
-
+    // ----[ Rest of the code goes here ... ]----
+    Logger::info(Logger::concatenate("Input file path: ", inputFilePath));
     return 0;
 }
