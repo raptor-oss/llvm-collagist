@@ -65,13 +65,20 @@ Options:
   --input TEXT REQUIRED       The Path to LLVM IR file (*.ll)
 ```
 
-## Testing
-
-To run the tests:
+To run a sample program (run the following from within the build directory):
 
 ```bash
-cd build/
-ctest
+./LLVMSlicer --input=../test/test_data/test_rust.ll
+
+---------------------------------------------
+IR:   %2 = sext i32 %0 to i64
+---------------------------------------------
+IR:   %3 = tail call i64 @_ZN3std2rt10lang_start17h2964b571ece19e55E(void ()* @_ZN6sample4main17h2d3e56a54a8f5081E, i64 %2, i8** %1)
+---------------------------------------------
+IR:   %4 = trunc i64 %3 to i32
+---------------------------------------------
+IR:   ret i32 %4
+---------------------------------------------
 ```
 
 ## License
