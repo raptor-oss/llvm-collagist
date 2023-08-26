@@ -71,13 +71,25 @@ To run a sample program (run the following from within the build directory):
 ./LLVMSlicer --input=../test/test_data/test_rust.ll
 
 ---------------------------------------------
-IR:   %2 = sext i32 %0 to i64
+IR:   call void @llvm.lifetime.start.p0i8(i64 4, i8* nonnull %12), !dbg !27
+Source File: sample.rs
+Source Line: 12
+Source Column: 9
 ---------------------------------------------
-IR:   %3 = tail call i64 @_ZN3std2rt10lang_start17h2964b571ece19e55E(void ()* @_ZN6sample4main17h2d3e56a54a8f5081E, i64 %2, i8** %1)
+IR:   %_45 = load i32, i32* %n, align 4, !dbg !28
+Source File: sample.rs
+Source Line: 13
+Source Column: 12
 ---------------------------------------------
-IR:   %4 = trunc i64 %3 to i32
+IR:   %13 = add i32 %_45, 9, !dbg !28
+Source File: sample.rs
+Source Line: 13
+Source Column: 12
 ---------------------------------------------
-IR:   ret i32 %4
+IR:   %14 = icmp ult i32 %13, 19, !dbg !28
+Source File: sample.rs
+Source Line: 13
+Source Column: 12
 ---------------------------------------------
 ```
 
