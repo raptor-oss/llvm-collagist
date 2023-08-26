@@ -56,7 +56,7 @@ After successful build, you should see an executable named `LLVMSourceExtractor`
 For usage instructions, from the `build/` directory, execute:
 
 ```bash
-❯ ./LLVMSourceExtractor --help
+❯ ./LLVMSlicer --help
 LLVM IR Slicer and Source Extractor
 Usage: ./LLVMSourceExtractor [OPTIONS]
 
