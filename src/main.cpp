@@ -23,7 +23,7 @@ int main(int argc, char **argv)
         return app.exit(e);
     }
 
-    // ----[ Get the module from the ll file]----
+    // ----[ Get the module from the ll file ]----
     Logger::info(Logger::concatenate("Input file path: ", inputFilePath));
     extractSourceInfo(inputFilePath);
     return 0;
