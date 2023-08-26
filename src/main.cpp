@@ -1,6 +1,8 @@
 #include <CLI/CLI.hpp>
 #include <utils/Logger.h>
 
+#include "Extractor.h"
+
 using namespace std;
 using namespace CLI;
 
@@ -21,7 +23,8 @@ int main(int argc, char **argv)
         return app.exit(e);
     }
 
-    // ----[ Rest of the code goes here ... ]----
+    // ----[ Get the module from the ll file]----
     Logger::info(Logger::concatenate("Input file path: ", inputFilePath));
+    extractSourceInfo(inputFilePath);
     return 0;
 }
