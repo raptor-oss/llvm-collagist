@@ -12,21 +12,50 @@
 
 #include "llvm/IRReader/IRReader.h"
 
+#include <fmt/core.h>
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
+using namespace std;
 
-void extractSourceInfo(const std::string llFile) {
+std::string getLanguage(const std::string& filename) {
+    std::string extension = filename.substr(filename.find_last_of('.') + 1);
+
+    if (extension == "c") {
+        return "C";
+    } else if (extension == "cpp" || extension == "cxx" || extension == "cc") {
+        return "C++";
+    } else if (extension == "java") {
+        return "Java";
+    } else if (extension == "go") {
+        return "Go";
+    } else if (extension == "rs") {
+        return "Rust";
+    } else {
+        return "Unknown";
+    }
+}
+
+void extractSourceInfo(const string source, const string llvmir_file)
+{
 
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
-    auto module = llvm::parseIRFile(llFile, error, context);
+    auto module = llvm::parseIRFile(llvmir_file, error, context);
 
     if (!module) {
-        Logger::error("Error reading .ll file");
+        Logger::error("Error reading", llvmir_file);
     }
 
-    for (const auto &F : *module) {
+    // Set up outer JSON
+    json outer;
+    outer["language"] = getLanguage(source);
+
+    // Initialize fragments
+    outer["fragments"] = json::array();
+
+    for (const auto &F : *module)
+    {
         for (const auto &I : instructions(F)) {
             const llvm::DILocation *Loc = I.getDebugLoc();
             llvm::outs() << "IR: " << I << "\n";

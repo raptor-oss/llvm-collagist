@@ -1,6 +1,7 @@
 #include <CLI/CLI.hpp>
 #include <utils/Logger.h>
 #include <Extractor.h>
+#include <fmt/core.h>
 
 using namespace std;
 using namespace CLI;
@@ -9,13 +10,15 @@ int main(int argc, char **argv)
 {
     // ----[ Setup CLI ]----
     App app{ "LLVM IR Slicer and Source Extractor" };
-    string inputFilePath;
+    string source_file;
+    string llvmir_file;
     bool verbosity;
-    app.add_option("--input", inputFilePath, "The Path to LLVM IR file (*.ll)")->required();
-    app.add_option("--verbose", verbosity, "Set verbosity (Default: true)")->default_val(true);
-
+    app.add_option("--source", source_file, "The Path to the original file source langauge")->required();
+    app.add_option("--llvmir", llvmir_file, "The Path to LLVM IR file (*.ll)")->required();
+    app.add_option("--verbose", verbosity, "Be verbose? (Default: true)")->default_val(true);
     // ----[ Setup logging ]----
     Logger::setVerbosity(verbosity);
+    Logger::info("Using", "verbosity", fmt::format("{}", verbosity));
 
     // ----[ Parse arguments ]---- 
     try {
@@ -25,7 +28,7 @@ int main(int argc, char **argv)
     }
 
     // ----[ Get the module from the ll file ]----
-    Logger::info(Logger::concatenate("Input file path: ", inputFilePath));
-    extractSourceInfo(inputFilePath);
+    Logger::info(fmt::format("Source file {} :: LLVMIR file {}", source_file, llvmir_file));
+    extractSourceInfo(source_file, llvmir_file);
     return 0;
 }

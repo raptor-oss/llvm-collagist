@@ -7,4 +7,4 @@
 
 #include "llvm/IR/Module.h"
 
-void extractSourceInfo(const std::string llFile);
+void extractSourceInfo(const std::string source, const std::string llvmir_file);

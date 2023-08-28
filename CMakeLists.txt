@@ -16,10 +16,12 @@ list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/llvm@13/")
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(LLVM REQUIRED CONFIG)
+
 # Add FetchContent
 include(FetchContent)
 
-# Fetch CLI11
+#  --[ CLI11 for CLI tools ]--
 FetchContent_Declare(
         CLI11
         GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
@@ -28,7 +30,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(CLI11)
 
-find_package(LLVM REQUIRED CONFIG)
+# --[ Read and save JSON ]--
 
 FetchContent_Declare(
         json 
@@ -36,6 +38,14 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(json)
+
+# --[ Formatting library ]--
+FetchContent_Declare(fmt
+  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+  GIT_TAG master
+)
+FetchContent_MakeAvailable(fmt)
+
 
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
@@ -46,6 +56,9 @@ include_directories(${cli11_SOURCE_DIR}/include)
 add_executable(LLVMSlicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp)
 target_include_directories(LLVMSlicer PRIVATE include)
 llvm_map_components_to_libnames(llvm_libs support core irreader)
-target_link_libraries(LLVMSlicer PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(LLVMSlicer PRIVATE ${llvm_libs})
+target_link_libraries(LLVMSlicer PRIVATE 
+        ${llvm_libs}
+        fmt::fmt
+        nlohmann_json::nlohmann_json
+)
 target_link_libraries(LLVMSlicer)
