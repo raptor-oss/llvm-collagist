@@ -12,6 +12,10 @@
 
 #include "llvm/IRReader/IRReader.h"
 
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
+
 void extractSourceInfo(const std::string llFile) {
 
     llvm::LLVMContext context;

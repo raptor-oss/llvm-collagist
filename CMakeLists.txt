@@ -1,8 +1,14 @@
-cmake_minimum_required(VERSION 3.11) # 3.11 or higher for FetchContent
+cmake_minimum_required(VERSION 3.11) 
 
 # Set the policy
 cmake_policy(SET CMP0127 OLD)
+
 set(CMAKE_WARN_DEPRECATED OFF)
+
+if(POLICY CMP0135)
+	cmake_policy(SET CMP0135 NEW)
+	set(CMAKE_POLICY_DEFAULT_CMP0135 NEW)
+endif()
 
 project(LLVMSlicer)
 
@@ -24,6 +30,13 @@ FetchContent_MakeAvailable(CLI11)
 
 find_package(LLVM REQUIRED CONFIG)
 
+FetchContent_Declare(
+        json 
+        URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
+)
+
+FetchContent_MakeAvailable(json)
+
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 
@@ -33,5 +46,6 @@ include_directories(${cli11_SOURCE_DIR}/include)
 add_executable(LLVMSlicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp)
 target_include_directories(LLVMSlicer PRIVATE include)
 llvm_map_components_to_libnames(llvm_libs support core irreader)
-target_link_libraries(LLVMSlicer ${llvm_libs})
+target_link_libraries(LLVMSlicer PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(LLVMSlicer PRIVATE ${llvm_libs})
 target_link_libraries(LLVMSlicer)

@@ -1,20 +1,21 @@
 #include <CLI/CLI.hpp>
 #include <utils/Logger.h>
-
-#include "Extractor.h"
+#include <Extractor.h>
 
 using namespace std;
 using namespace CLI;
 
 int main(int argc, char **argv)
 {
-    // ----[ Setup logging ]----
-    Logger::setVerbosity(true);
-
     // ----[ Setup CLI ]----
     App app{ "LLVM IR Slicer and Source Extractor" };
     string inputFilePath;
+    bool verbosity;
     app.add_option("--input", inputFilePath, "The Path to LLVM IR file (*.ll)")->required();
+    app.add_option("--verbose", verbosity, "Set verbosity (Default: true)")->default_val(true);
+
+    // ----[ Setup logging ]----
+    Logger::setVerbosity(verbosity);
 
     // ----[ Parse arguments ]---- 
     try {
