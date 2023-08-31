@@ -12,7 +12,7 @@ endif()
 
 project(LLVMSlicer)
 
-list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/llvm@13/")
+# list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/llvm@13/")
 
 set(CMAKE_CXX_STANDARD 17)
 
