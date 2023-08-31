@@ -22,7 +22,7 @@ target triple = "arm64-apple-macosx11.0.0"
 @alloc8 = private unnamed_addr constant <{ [1 x i8] }> <{ [1 x i8] c"\0A" }>, align 1
 @alloc6 = private unnamed_addr constant <{ i8*, [8 x i8], i8*, [8 x i8], i8*, [8 x i8] }> <{ i8* getelementptr inbounds (<{ [0 x i8] }>, <{ [0 x i8] }>* @alloc19, i32 0, i32 0, i32 0), [8 x i8] zeroinitializer, i8* getelementptr inbounds (<{ [19 x i8] }>, <{ [19 x i8] }>* @alloc7, i32 0, i32 0, i32 0), [8 x i8] c"\13\00\00\00\00\00\00\00", i8* getelementptr inbounds (<{ [1 x i8] }>, <{ [1 x i8] }>* @alloc8, i32 0, i32 0, i32 0), [8 x i8] c"\01\00\00\00\00\00\00\00" }>, align 8
 @alloc53 = private unnamed_addr constant <{ [5 x i8] }> <{ [5 x i8] c"Dolly" }>, align 1
-@vtable.0 = private unnamed_addr constant <{ i8*, [16 x i8], i8*, i8*, i8*, [0 x i8] }> <{ i8* bitcast (void (i64**)* @"_ZN4core3ptr85drop_in_place$LT$std..rt..lang_start$LT$$LP$$RP$$GT$..$u7b$$u7b$closure$u7d$$u7d$$GT$17h43d1629154544544E" to i8*), [16 x i8] c"\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00", i8* bitcast (i32 (i64**)* @"_ZN4core3ops8function6FnOnce40call_once$u7b$$u7b$vtable.shim$u7d$$u7d$17hf6c799f2ba60b89aE" to i8*), i8* bitcast (i32 (i64**)* @"_ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17hf81abbd01843cabcE" to i8*), i8* bitcast (i32 (i64**)* @"_ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17hf81abbd01843cabcE" to i8*), [0 x i8] zeroinitializer }>, align 8, !dbg !0
+@vtable.0 = private unnamed_addr constant <{ i8*, [16 x i8], i8*, i8*, i8*, [0 x i8] }> <{ i8* bitcast (void (i64**)* @"core::ptr::drop_in_place<std::rt::lang_start<()>::{{closure}}>" to i8*), [16 x i8] c"\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00", i8* bitcast (i32 (i64**)* @"core::ops::function::FnOnce::call_once{{vtable.shim}}" to i8*), i8* bitcast (i32 (i64**)* @"std::rt::lang_start::{{closure}}" to i8*), i8* bitcast (i32 (i64**)* @"std::rt::lang_start::{{closure}}" to i8*), [0 x i8] zeroinitializer }>, align 8, !dbg !0
 @alloc16 = private unnamed_addr constant <{ [12 x i8] }> <{ [12 x i8] c"invalid args" }>, align 1
 @alloc17 = private unnamed_addr constant <{ i8*, [8 x i8] }> <{ i8* getelementptr inbounds (<{ [12 x i8] }>, <{ [12 x i8] }>* @alloc16, i32 0, i32 0, i32 0), [8 x i8] c"\0C\00\00\00\00\00\00\00" }>, align 8
 @alloc59 = private unnamed_addr constant <{ [75 x i8] }> <{ [75 x i8] c"/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/fmt/mod.rs" }>, align 1
@@ -30,7 +30,7 @@ target triple = "arm64-apple-macosx11.0.0"
 
 ; core::ops::function::FnOnce::call_once{{vtable.shim}}
 ; Function Attrs: inlinehint uwtable
-define internal i32 @"_ZN4core3ops8function6FnOnce40call_once$u7b$$u7b$vtable.shim$u7d$$u7d$17hf6c799f2ba60b89aE"(i64** %_1) unnamed_addr #0 !dbg !48 {
+define internal i32 @"core::ops::function::FnOnce::call_once{{vtable.shim}}"(i64** %_1) unnamed_addr #0 !dbg !48 {
 start:
   %_1.dbg.spill = alloca i64**, align 8
   %_2 = alloca {}, align 1
@@ -39,7 +39,7 @@ start:
   call void @llvm.dbg.declare(metadata {}* %_2, metadata !59, metadata !DIExpression()), !dbg !63
   %0 = load i64*, i64** %_1, align 8, !dbg !63, !nonnull !23
 ; call core::ops::function::FnOnce::call_once
-  %1 = call i32 @_ZN4core3ops8function6FnOnce9call_once17h9a394708ed00f19bE(i64* nonnull %0), !dbg !63
+  %1 = call i32 @core::ops::function::FnOnce::call_once(i64* nonnull %0), !dbg !63
   br label %bb1, !dbg !63
 
 bb1:                                              ; preds = %start
@@ -48,7 +48,7 @@ bb1:                                              ; preds = %start
 
 ; core::ops::function::FnOnce::call_once
 ; Function Attrs: inlinehint uwtable
-define internal i32 @_ZN4core3ops8function6FnOnce9call_once17h9a394708ed00f19bE(i64* nonnull %0) unnamed_addr #0 personality i32 (i32, i32, i64, %"unwind::libunwind::_Unwind_Exception"*, %"unwind::libunwind::_Unwind_Context"*)* @rust_eh_personality !dbg !64 {
+define internal i32 @core::ops::function::FnOnce::call_once(i64* nonnull %0) unnamed_addr #0 personality i32 (i32, i32, i64, %"unwind::libunwind::_Unwind_Exception"*, %"unwind::libunwind::_Unwind_Context"*)* @rust_eh_personality !dbg !64 {
 start:
   %1 = alloca { i8*, i32 }, align 8
   %_2 = alloca {}, align 1
@@ -57,7 +57,7 @@ start:
   call void @llvm.dbg.declare(metadata i64** %_1, metadata !68, metadata !DIExpression()), !dbg !70
   call void @llvm.dbg.declare(metadata {}* %_2, metadata !69, metadata !DIExpression()), !dbg !70
 ; invoke std::rt::lang_start::{{closure}}
-  %2 = invoke i32 @"_ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17hf81abbd01843cabcE"(i64** noundef align 8 dereferenceable(8) %_1)
+  %2 = invoke i32 @"std::rt::lang_start::{{closure}}"(i64** noundef align 8 dereferenceable(8) %_1)
           to label %bb1 unwind label %cleanup, !dbg !70
 
 bb1:                                              ; preds = %start
@@ -92,7 +92,7 @@ bb2:                                              ; preds = %bb1
 
 ; core::ops::function::FnOnce::call_once
 ; Function Attrs: inlinehint uwtable
-define internal void @_ZN4core3ops8function6FnOnce9call_once17he0a8fee5e9bc4b34E(void ()* nonnull %_1) unnamed_addr #0 !dbg !71 {
+define internal void @core::ops::function::FnOnce::call_once(void ()* nonnull %_1) unnamed_addr #0 !dbg !71 {
 start:
   %_1.dbg.spill = alloca void ()*, align 8
   %_2 = alloca {}, align 1
@@ -108,7 +108,7 @@ bb1:                                              ; preds = %start
 
 ; core::ptr::drop_in_place<std::rt::lang_start<()>::{{closure}}>
 ; Function Attrs: inlinehint uwtable
-define internal void @"_ZN4core3ptr85drop_in_place$LT$std..rt..lang_start$LT$$LP$$RP$$GT$..$u7b$$u7b$closure$u7d$$u7d$$GT$17h43d1629154544544E"(i64** %_1) unnamed_addr #0 !dbg !80 {
+define internal void @"core::ptr::drop_in_place<std::rt::lang_start<()>::{{closure}}>"(i64** %_1) unnamed_addr #0 !dbg !80 {
 start:
   %_1.dbg.spill = alloca i64**, align 8
   store i64** %_1, i64*** %_1.dbg.spill, align 8
@@ -118,7 +118,7 @@ start:
 
 ; test_rust::Sheep::is_naked
 ; Function Attrs: uwtable
-define internal noundef zeroext i1 @_ZN9test_rust5Sheep8is_naked17h1b956e419463df68E(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !90 {
+define internal noundef zeroext i1 @test_rust::Sheep::is_naked(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !90 {
 start:
   %self.dbg.spill = alloca %Sheep*, align 8
   store %Sheep* %self, %Sheep** %self.dbg.spill, align 8
@@ -131,7 +131,7 @@ start:
 
 ; test_rust::Sheep::shear
 ; Function Attrs: uwtable
-define internal void @_ZN9test_rust5Sheep5shear17h17964a275c4cbb8aE(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !112 {
+define internal void @test_rust::Sheep::shear(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !112 {
 start:
   %self.dbg.spill = alloca %Sheep*, align 8
   %_26 = alloca [1 x { i8*, i64* }], align 8
@@ -142,7 +142,7 @@ start:
   store %Sheep* %self, %Sheep** %self.dbg.spill, align 8
   call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !117, metadata !DIExpression()), !dbg !118
 ; call test_rust::Sheep::is_naked
-  %_2 = call noundef zeroext i1 @_ZN9test_rust5Sheep8is_naked17h1b956e419463df68E(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !119
+  %_2 = call noundef zeroext i1 @test_rust::Sheep::is_naked(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !119
   br label %bb1, !dbg !119
 
 bb1:                                              ; preds = %start
@@ -151,20 +151,20 @@ bb1:                                              ; preds = %start
 bb6:                                              ; preds = %bb1
   %_29 = bitcast %Sheep* %self to { [0 x i8]*, i64 }*, !dbg !120
 ; call core::fmt::ArgumentV1::new_display
-  %0 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_29), !dbg !120
+  %0 = call { i8*, i64* } @core::fmt::ArgumentV1::new_display({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_29), !dbg !120
   %_27.0 = extractvalue { i8*, i64* } %0, 0, !dbg !120
   %_27.1 = extractvalue { i8*, i64* } %0, 1, !dbg !120
   br label %bb7, !dbg !120
 
 bb2:                                              ; preds = %bb1
 ; call <test_rust::Sheep as test_rust::Animal>::name
-  %1 = call { [0 x i8]*, i64 } @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4name17h38fd05a32733abdeE"(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !121
+  %1 = call { [0 x i8]*, i64 } @"<test_rust::Sheep as test_rust::Animal>::name"(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !121
   store { [0 x i8]*, i64 } %1, { [0 x i8]*, i64 }* %_16, align 8, !dbg !121
   br label %bb3, !dbg !121
 
 bb3:                                              ; preds = %bb2
 ; call core::fmt::ArgumentV1::new_display
-  %2 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_16), !dbg !122
+  %2 = call { i8*, i64* } @core::fmt::ArgumentV1::new_display({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_16), !dbg !122
   %_13.0 = extractvalue { i8*, i64* } %2, 0, !dbg !122
   %_13.1 = extractvalue { i8*, i64* } %2, 1, !dbg !122
   br label %bb4, !dbg !122
@@ -177,12 +177,12 @@ bb4:                                              ; preds = %bb3
   store i64* %_13.1, i64** %5, align 8, !dbg !122
   %_9.0 = bitcast [1 x { i8*, i64* }]* %_12 to [0 x { i8*, i64* }]*, !dbg !122
 ; call core::fmt::Arguments::new_v1
-  call void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_5, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8] }>* @alloc22 to [0 x { [0 x i8]*, i64 }]*), i64 2, [0 x { i8*, i64* }]* noundef nonnull align 8 %_9.0, i64 1), !dbg !122
+  call void @core::fmt::Arguments::new_v1(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_5, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8] }>* @alloc22 to [0 x { [0 x i8]*, i64 }]*), i64 2, [0 x { i8*, i64* }]* noundef nonnull align 8 %_9.0, i64 1), !dbg !122
   br label %bb5, !dbg !122
 
 bb5:                                              ; preds = %bb4
 ; call std::io::stdio::_print
-  call void @_ZN3std2io5stdio6_print17h56750a7b9b0c9427E(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_5), !dbg !122
+  call void @std::io::stdio::_print(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_5), !dbg !122
   br label %bb10, !dbg !122
 
 bb10:                                             ; preds = %bb9, %bb5
@@ -196,12 +196,12 @@ bb7:                                              ; preds = %bb6
   store i64* %_27.1, i64** %8, align 8, !dbg !120
   %_23.0 = bitcast [1 x { i8*, i64* }]* %_26 to [0 x { i8*, i64* }]*, !dbg !120
 ; call core::fmt::Arguments::new_v1
-  call void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_19, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8] }>* @alloc26 to [0 x { [0 x i8]*, i64 }]*), i64 2, [0 x { i8*, i64* }]* noundef nonnull align 8 %_23.0, i64 1), !dbg !120
+  call void @core::fmt::Arguments::new_v1(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_19, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8] }>* @alloc26 to [0 x { [0 x i8]*, i64 }]*), i64 2, [0 x { i8*, i64* }]* noundef nonnull align 8 %_23.0, i64 1), !dbg !120
   br label %bb8, !dbg !120
 
 bb8:                                              ; preds = %bb7
 ; call std::io::stdio::_print
-  call void @_ZN3std2io5stdio6_print17h56750a7b9b0c9427E(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_19), !dbg !120
+  call void @std::io::stdio::_print(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_19), !dbg !120
   br label %bb9, !dbg !120
 
 bb9:                                              ; preds = %bb8
@@ -212,7 +212,7 @@ bb9:                                              ; preds = %bb8
 
 ; <test_rust::Sheep as test_rust::Animal>::new
 ; Function Attrs: uwtable
-define internal void @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$3new17hb13cfef5428c1bdaE"(%Sheep* noalias nocapture noundef sret(%Sheep) dereferenceable(24) %0, [0 x i8]* noundef nonnull align 1 %name.0, i64 %name.1) unnamed_addr #1 !dbg !126 {
+define internal void @"<test_rust::Sheep as test_rust::Animal>::new"(%Sheep* noalias nocapture noundef sret(%Sheep) dereferenceable(24) %0, [0 x i8]* noundef nonnull align 1 %name.0, i64 %name.1) unnamed_addr #1 !dbg !126 {
 start:
   %name.dbg.spill = alloca { [0 x i8]*, i64 }, align 8
   %1 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %name.dbg.spill, i32 0, i32 0
@@ -232,7 +232,7 @@ start:
 
 ; <test_rust::Sheep as test_rust::Animal>::name
 ; Function Attrs: uwtable
-define internal { [0 x i8]*, i64 } @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4name17h38fd05a32733abdeE"(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !135 {
+define internal { [0 x i8]*, i64 } @"<test_rust::Sheep as test_rust::Animal>::name"(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !135 {
 start:
   %self.dbg.spill = alloca %Sheep*, align 8
   store %Sheep* %self, %Sheep** %self.dbg.spill, align 8
@@ -249,14 +249,14 @@ start:
 
 ; <test_rust::Sheep as test_rust::Animal>::noise
 ; Function Attrs: uwtable
-define internal { [0 x i8]*, i64 } @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$5noise17hdd03463da2673b73E"(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !143 {
+define internal { [0 x i8]*, i64 } @"<test_rust::Sheep as test_rust::Animal>::noise"(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !143 {
 start:
   %self.dbg.spill = alloca %Sheep*, align 8
   %0 = alloca { [0 x i8]*, i64 }, align 8
   store %Sheep* %self, %Sheep** %self.dbg.spill, align 8
   call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !145, metadata !DIExpression()), !dbg !146
 ; call test_rust::Sheep::is_naked
-  %_2 = call noundef zeroext i1 @_ZN9test_rust5Sheep8is_naked17h1b956e419463df68E(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !147
+  %_2 = call noundef zeroext i1 @test_rust::Sheep::is_naked(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !147
   br label %bb1, !dbg !147
 
 bb1:                                              ; preds = %start
@@ -288,7 +288,7 @@ bb4:                                              ; preds = %bb3, %bb2
 
 ; <test_rust::Sheep as test_rust::Animal>::talk
 ; Function Attrs: uwtable
-define internal void @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4talk17h1616a02941476084E"(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !152 {
+define internal void @"<test_rust::Sheep as test_rust::Animal>::talk"(%Sheep* noundef align 8 dereferenceable(24) %self) unnamed_addr #1 !dbg !152 {
 start:
   %self.dbg.spill = alloca %Sheep*, align 8
   %_17 = alloca { [0 x i8]*, i64 }, align 8
@@ -298,20 +298,20 @@ start:
   call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !156, metadata !DIExpression()), !dbg !157
   %_13 = bitcast %Sheep* %self to { [0 x i8]*, i64 }*, !dbg !158
 ; call core::fmt::ArgumentV1::new_display
-  %0 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_13), !dbg !158
+  %0 = call { i8*, i64* } @core::fmt::ArgumentV1::new_display({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_13), !dbg !158
   %_11.0 = extractvalue { i8*, i64* } %0, 0, !dbg !158
   %_11.1 = extractvalue { i8*, i64* } %0, 1, !dbg !158
   br label %bb1, !dbg !158
 
 bb1:                                              ; preds = %start
 ; call <test_rust::Sheep as test_rust::Animal>::noise
-  %1 = call { [0 x i8]*, i64 } @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$5noise17hdd03463da2673b73E"(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !159
+  %1 = call { [0 x i8]*, i64 } @"<test_rust::Sheep as test_rust::Animal>::noise"(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !159
   store { [0 x i8]*, i64 } %1, { [0 x i8]*, i64 }* %_17, align 8, !dbg !159
   br label %bb2, !dbg !159
 
 bb2:                                              ; preds = %bb1
 ; call core::fmt::ArgumentV1::new_display
-  %2 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_17), !dbg !158
+  %2 = call { i8*, i64* } @core::fmt::ArgumentV1::new_display({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_17), !dbg !158
   %_14.0 = extractvalue { i8*, i64* } %2, 0, !dbg !158
   %_14.1 = extractvalue { i8*, i64* } %2, 1, !dbg !158
   br label %bb3, !dbg !158
@@ -329,12 +329,12 @@ bb3:                                              ; preds = %bb2
   store i64* %_14.1, i64** %8, align 8, !dbg !158
   %_7.0 = bitcast [2 x { i8*, i64* }]* %_10 to [0 x { i8*, i64* }]*, !dbg !158
 ; call core::fmt::Arguments::new_v1
-  call void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_3, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8], i8*, [8 x i8] }>* @alloc6 to [0 x { [0 x i8]*, i64 }]*), i64 3, [0 x { i8*, i64* }]* noundef nonnull align 8 %_7.0, i64 2), !dbg !158
+  call void @core::fmt::Arguments::new_v1(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_3, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8], i8*, [8 x i8] }>* @alloc6 to [0 x { [0 x i8]*, i64 }]*), i64 3, [0 x { i8*, i64* }]* noundef nonnull align 8 %_7.0, i64 2), !dbg !158
   br label %bb4, !dbg !158
 
 bb4:                                              ; preds = %bb3
 ; call std::io::stdio::_print
-  call void @_ZN3std2io5stdio6_print17h56750a7b9b0c9427E(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_3), !dbg !158
+  call void @std::io::stdio::_print(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_3), !dbg !158
   br label %bb5, !dbg !158
 
 bb5:                                              ; preds = %bb4
@@ -343,27 +343,27 @@ bb5:                                              ; preds = %bb4
 
 ; test_rust::main
 ; Function Attrs: uwtable
-define internal void @_ZN9test_rust4main17hd041255a46cdba80E() unnamed_addr #1 !dbg !161 {
+define internal void @test_rust::main() unnamed_addr #1 !dbg !161 {
 start:
   %dolly = alloca %Sheep, align 8
   call void @llvm.dbg.declare(metadata %Sheep* %dolly, metadata !163, metadata !DIExpression()), !dbg !165
 ; call <test_rust::Sheep as test_rust::Animal>::new
-  call void @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$3new17hb13cfef5428c1bdaE"(%Sheep* noalias nocapture noundef sret(%Sheep) dereferenceable(24) %dolly, [0 x i8]* noundef nonnull align 1 bitcast (<{ [5 x i8] }>* @alloc53 to [0 x i8]*), i64 5), !dbg !166
+  call void @"<test_rust::Sheep as test_rust::Animal>::new"(%Sheep* noalias nocapture noundef sret(%Sheep) dereferenceable(24) %dolly, [0 x i8]* noundef nonnull align 1 bitcast (<{ [5 x i8] }>* @alloc53 to [0 x i8]*), i64 5), !dbg !166
   br label %bb1, !dbg !166
 
 bb1:                                              ; preds = %start
 ; call <test_rust::Sheep as test_rust::Animal>::talk
-  call void @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4talk17h1616a02941476084E"(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !167
+  call void @"<test_rust::Sheep as test_rust::Animal>::talk"(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !167
   br label %bb2, !dbg !167
 
 bb2:                                              ; preds = %bb1
 ; call test_rust::Sheep::shear
-  call void @_ZN9test_rust5Sheep5shear17h17964a275c4cbb8aE(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !168
+  call void @test_rust::Sheep::shear(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !168
   br label %bb3, !dbg !168
 
 bb3:                                              ; preds = %bb2
 ; call <test_rust::Sheep as test_rust::Animal>::talk
-  call void @"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4talk17h1616a02941476084E"(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !169
+  call void @"<test_rust::Sheep as test_rust::Animal>::talk"(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !169
   br label %bb4, !dbg !169
 
 bb4:                                              ; preds = %bb3
@@ -372,7 +372,7 @@ bb4:                                              ; preds = %bb3
 
 ; core::hint::black_box
 ; Function Attrs: inlinehint uwtable
-define internal void @_ZN4core4hint9black_box17h95ff76910fa03c36E() unnamed_addr #0 !dbg !172 {
+define internal void @core::hint::black_box() unnamed_addr #0 !dbg !172 {
 start:
   %dummy.dbg.spill = alloca {}, align 1
   call void @llvm.dbg.declare(metadata {}* %dummy.dbg.spill, metadata !178, metadata !DIExpression()), !dbg !181
@@ -385,13 +385,13 @@ bb1:                                              ; preds = %start
 
 ; std::process::ExitCode::to_i32
 ; Function Attrs: inlinehint uwtable
-define internal i32 @_ZN3std7process8ExitCode6to_i3217h1ffd091b34e7c8deE(i8 %0) unnamed_addr #0 !dbg !185 {
+define internal i32 @std::process::ExitCode::to_i32(i8 %0) unnamed_addr #0 !dbg !185 {
 start:
   %self = alloca i8, align 1
   store i8 %0, i8* %self, align 1
   call void @llvm.dbg.declare(metadata i8* %self, metadata !201, metadata !DIExpression()), !dbg !202
 ; call std::sys::unix::process::process_common::ExitCode::as_i32
-  %1 = call i32 @_ZN3std3sys4unix7process14process_common8ExitCode6as_i3217hce99c6cbfd6d1a5eE(i8* noundef align 1 dereferenceable(1) %self), !dbg !203
+  %1 = call i32 @std::sys::unix::process::process_common::ExitCode::as_i32(i8* noundef align 1 dereferenceable(1) %self), !dbg !203
   br label %bb1, !dbg !203
 
 bb1:                                              ; preds = %start
@@ -400,12 +400,12 @@ bb1:                                              ; preds = %start
 
 ; <() as std::process::Termination>::report
 ; Function Attrs: inlinehint uwtable
-define internal i8 @"_ZN54_$LT$$LP$$RP$$u20$as$u20$std..process..Termination$GT$6report17hcba6955caa8405d5E"() unnamed_addr #0 !dbg !205 {
+define internal i8 @"<() as std::process::Termination>::report"() unnamed_addr #0 !dbg !205 {
 start:
   %self.dbg.spill = alloca {}, align 1
   call void @llvm.dbg.declare(metadata {}* %self.dbg.spill, metadata !210, metadata !DIExpression()), !dbg !211
 ; call <std::process::ExitCode as std::process::Termination>::report
-  %0 = call i8 @"_ZN68_$LT$std..process..ExitCode$u20$as$u20$std..process..Termination$GT$6report17h4a5b522a2bd5aeaaE"(i8 0), !dbg !212
+  %0 = call i8 @"<std::process::ExitCode as std::process::Termination>::report"(i8 0), !dbg !212
   br label %bb1, !dbg !212
 
 bb1:                                              ; preds = %start
@@ -414,7 +414,7 @@ bb1:                                              ; preds = %start
 
 ; <std::process::ExitCode as std::process::Termination>::report
 ; Function Attrs: inlinehint uwtable
-define internal i8 @"_ZN68_$LT$std..process..ExitCode$u20$as$u20$std..process..Termination$GT$6report17h4a5b522a2bd5aeaaE"(i8 %self) unnamed_addr #0 !dbg !214 {
+define internal i8 @"<std::process::ExitCode as std::process::Termination>::report"(i8 %self) unnamed_addr #0 !dbg !214 {
 start:
   %self.dbg.spill = alloca i8, align 1
   store i8 %self, i8* %self.dbg.spill, align 1
@@ -424,7 +424,7 @@ start:
 
 ; std::rt::lang_start
 ; Function Attrs: uwtable
-define hidden i64 @_ZN3std2rt10lang_start17h243bee2d0c256238E(void ()* nonnull %main, i64 %argc, i8** %argv) unnamed_addr #1 !dbg !222 {
+define hidden i64 @std::rt::lang_start(void ()* nonnull %main, i64 %argc, i8** %argv) unnamed_addr #1 !dbg !222 {
 start:
   %v.dbg.spill = alloca i64, align 8
   %argv.dbg.spill = alloca i8**, align 8
@@ -442,7 +442,7 @@ start:
   store void ()* %main, void ()** %0, align 8, !dbg !238
   %_5.0 = bitcast i64** %_8 to {}*, !dbg !239
 ; call std::rt::lang_start_internal
-  %1 = call i64 @_ZN3std2rt19lang_start_internal17h358b6d58e23c88c7E({}* noundef nonnull align 1 %_5.0, [3 x i64]* noundef align 8 dereferenceable(24) bitcast (<{ i8*, [16 x i8], i8*, i8*, i8*, [0 x i8] }>* @vtable.0 to [3 x i64]*), i64 %argc, i8** %argv), !dbg !240
+  %1 = call i64 @std::rt::lang_start_internal({}* noundef nonnull align 1 %_5.0, [3 x i64]* noundef align 8 dereferenceable(24) bitcast (<{ i8*, [16 x i8], i8*, i8*, i8*, [0 x i8] }>* @vtable.0 to [3 x i64]*), i64 %argc, i8** %argv), !dbg !240
   store i64 %1, i64* %_4, align 8, !dbg !240
   br label %bb1, !dbg !240
 
@@ -455,7 +455,7 @@ bb1:                                              ; preds = %start
 
 ; std::rt::lang_start::{{closure}}
 ; Function Attrs: inlinehint uwtable
-define internal i32 @"_ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17hf81abbd01843cabcE"(i64** noundef align 8 dereferenceable(8) %_1) unnamed_addr #0 !dbg !244 {
+define internal i32 @"std::rt::lang_start::{{closure}}"(i64** noundef align 8 dereferenceable(8) %_1) unnamed_addr #0 !dbg !244 {
 start:
   %_1.dbg.spill = alloca i64**, align 8
   store i64** %_1, i64*** %_1.dbg.spill, align 8
@@ -465,17 +465,17 @@ start:
   %2 = bitcast i64** %_1 to void ()**, !dbg !251
   %_4 = load void ()*, void ()** %2, align 8, !dbg !251, !nonnull !23
 ; call std::sys_common::backtrace::__rust_begin_short_backtrace
-  call void @_ZN3std10sys_common9backtrace28__rust_begin_short_backtrace17h96dd6635f2fbfd60E(void ()* nonnull %_4), !dbg !252
+  call void @std::sys_common::backtrace::__rust_begin_short_backtrace(void ()* nonnull %_4), !dbg !252
   br label %bb1, !dbg !252
 
 bb1:                                              ; preds = %start
 ; call <() as std::process::Termination>::report
-  %_2 = call i8 @"_ZN54_$LT$$LP$$RP$$u20$as$u20$std..process..Termination$GT$6report17hcba6955caa8405d5E"(), !dbg !252
+  %_2 = call i8 @"<() as std::process::Termination>::report"(), !dbg !252
   br label %bb2, !dbg !252
 
 bb2:                                              ; preds = %bb1
 ; call std::process::ExitCode::to_i32
-  %3 = call i32 @_ZN3std7process8ExitCode6to_i3217h1ffd091b34e7c8deE(i8 %_2), !dbg !252
+  %3 = call i32 @std::process::ExitCode::to_i32(i8 %_2), !dbg !252
   br label %bb3, !dbg !252
 
 bb3:                                              ; preds = %bb2
@@ -484,7 +484,7 @@ bb3:                                              ; preds = %bb2
 
 ; std::sys_common::backtrace::__rust_begin_short_backtrace
 ; Function Attrs: noinline uwtable
-define internal void @_ZN3std10sys_common9backtrace28__rust_begin_short_backtrace17h96dd6635f2fbfd60E(void ()* nonnull %f) unnamed_addr #2 personality i32 (i32, i32, i64, %"unwind::libunwind::_Unwind_Exception"*, %"unwind::libunwind::_Unwind_Context"*)* @rust_eh_personality !dbg !254 {
+define internal void @std::sys_common::backtrace::__rust_begin_short_backtrace(void ()* nonnull %f) unnamed_addr #2 personality i32 (i32, i32, i64, %"unwind::libunwind::_Unwind_Exception"*, %"unwind::libunwind::_Unwind_Context"*)* @rust_eh_personality !dbg !254 {
 start:
   %0 = alloca { i8*, i32 }, align 8
   %f.dbg.spill = alloca void ()*, align 8
@@ -493,12 +493,12 @@ start:
   store void ()* %f, void ()** %f.dbg.spill, align 8
   call void @llvm.dbg.declare(metadata void ()** %f.dbg.spill, metadata !259, metadata !DIExpression()), !dbg !265
 ; call core::ops::function::FnOnce::call_once
-  call void @_ZN4core3ops8function6FnOnce9call_once17he0a8fee5e9bc4b34E(void ()* nonnull %f), !dbg !266
+  call void @core::ops::function::FnOnce::call_once(void ()* nonnull %f), !dbg !266
   br label %bb1, !dbg !266
 
 bb1:                                              ; preds = %start
 ; invoke core::hint::black_box
-  invoke void @_ZN4core4hint9black_box17h95ff76910fa03c36E()
+  invoke void @core::hint::black_box()
           to label %bb2 unwind label %cleanup, !dbg !267
 
 bb2:                                              ; preds = %bb1
@@ -530,7 +530,7 @@ bb4:                                              ; preds = %bb3
 
 ; core::fmt::ArgumentV1::new
 ; Function Attrs: inlinehint uwtable
-define internal { i8*, i64* } @_ZN4core3fmt10ArgumentV13new17h5afc55ecc8f3cf85E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %x, i1 ({ [0 x i8]*, i64 }*, %"core::fmt::Formatter"*)* nonnull %f) unnamed_addr #0 !dbg !271 {
+define internal { i8*, i64* } @core::fmt::ArgumentV1::new({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %x, i1 ({ [0 x i8]*, i64 }*, %"core::fmt::Formatter"*)* nonnull %f) unnamed_addr #0 !dbg !271 {
 start:
   %0 = alloca %"core::fmt::Opaque"*, align 8
   %1 = alloca i1 (%"core::fmt::Opaque"*, %"core::fmt::Formatter"*)*, align 8
@@ -569,7 +569,7 @@ bb2:                                              ; preds = %bb1
 
 ; core::fmt::Arguments::new_v1
 ; Function Attrs: inlinehint uwtable
-define internal void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %0, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 %pieces.0, i64 %pieces.1, [0 x { i8*, i64* }]* noundef nonnull align 8 %args.0, i64 %args.1) unnamed_addr #0 !dbg !335 {
+define internal void @core::fmt::Arguments::new_v1(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %0, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 %pieces.0, i64 %pieces.1, [0 x { i8*, i64* }]* noundef nonnull align 8 %args.0, i64 %args.1) unnamed_addr #0 !dbg !335 {
 start:
   %args.dbg.spill = alloca { [0 x { i8*, i64* }]*, i64 }, align 8
   %pieces.dbg.spill = alloca { [0 x { [0 x i8]*, i64 }]*, i64 }, align 8
@@ -633,18 +633,18 @@ bb6:                                              ; preds = %bb3
 
 bb4:                                              ; preds = %bb3
 ; call core::fmt::Arguments::new_v1
-  call void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_15, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8] }>* @alloc17 to [0 x { [0 x i8]*, i64 }]*), i64 1, [0 x { i8*, i64* }]* noundef nonnull align 8 bitcast (<{ [0 x i8] }>* @alloc19 to [0 x { i8*, i64* }]*), i64 0), !dbg !407
+  call void @core::fmt::Arguments::new_v1(%"core::fmt::Arguments"* noalias nocapture noundef sret(%"core::fmt::Arguments") dereferenceable(48) %_15, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8] }>* @alloc17 to [0 x { [0 x i8]*, i64 }]*), i64 1, [0 x { i8*, i64* }]* noundef nonnull align 8 bitcast (<{ [0 x i8] }>* @alloc19 to [0 x { i8*, i64* }]*), i64 0), !dbg !407
   br label %bb5, !dbg !407
 
 bb5:                                              ; preds = %bb4
 ; call core::panicking::panic_fmt
-  call void @_ZN4core9panicking9panic_fmt17h4fe1013b011ef602E(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_15, %"core::panic::location::Location"* noundef align 8 dereferenceable(24) bitcast (<{ i8*, [16 x i8] }>* @alloc60 to %"core::panic::location::Location"*)) #7, !dbg !407
+  call void @core::panicking::panic_fmt(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48) %_15, %"core::panic::location::Location"* noundef align 8 dereferenceable(24) bitcast (<{ i8*, [16 x i8] }>* @alloc60 to %"core::panic::location::Location"*)) #7, !dbg !407
   unreachable, !dbg !407
 }
 
 ; std::sys::unix::process::process_common::ExitCode::as_i32
 ; Function Attrs: inlinehint uwtable
-define internal i32 @_ZN3std3sys4unix7process14process_common8ExitCode6as_i3217hce99c6cbfd6d1a5eE(i8* noundef align 1 dereferenceable(1) %self) unnamed_addr #0 !dbg !408 {
+define internal i32 @std::sys::unix::process::process_common::ExitCode::as_i32(i8* noundef align 1 dereferenceable(1) %self) unnamed_addr #0 !dbg !408 {
 start:
   %self.dbg.spill = alloca i8*, align 8
   store i8* %self, i8** %self.dbg.spill, align 8
@@ -656,13 +656,13 @@ start:
 
 ; core::fmt::ArgumentV1::new_display
 ; Function Attrs: inlinehint uwtable
-define internal { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %x) unnamed_addr #0 !dbg !418 {
+define internal { i8*, i64* } @core::fmt::ArgumentV1::new_display({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %x) unnamed_addr #0 !dbg !418 {
 start:
   %x.dbg.spill = alloca { [0 x i8]*, i64 }*, align 8
   store { [0 x i8]*, i64 }* %x, { [0 x i8]*, i64 }** %x.dbg.spill, align 8
   call void @llvm.dbg.declare(metadata { [0 x i8]*, i64 }** %x.dbg.spill, metadata !422, metadata !DIExpression()), !dbg !423
 ; call core::fmt::ArgumentV1::new
-  %0 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV13new17h5afc55ecc8f3cf85E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %x, i1 ({ [0 x i8]*, i64 }*, %"core::fmt::Formatter"*)* nonnull @"_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he99fb45e94e8a11cE"), !dbg !424
+  %0 = call { i8*, i64* } @core::fmt::ArgumentV1::new({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %x, i1 ({ [0 x i8]*, i64 }*, %"core::fmt::Formatter"*)* nonnull @"<&T as core::fmt::Display>::fmt"), !dbg !424
   %1 = extractvalue { i8*, i64* } %0, 0, !dbg !424
   %2 = extractvalue { i8*, i64* } %0, 1, !dbg !424
   br label %bb1, !dbg !424
@@ -675,7 +675,7 @@ bb1:                                              ; preds = %start
 
 ; <&T as core::fmt::Display>::fmt
 ; Function Attrs: uwtable
-define internal noundef zeroext i1 @"_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he99fb45e94e8a11cE"({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %self, %"core::fmt::Formatter"* noundef align 8 dereferenceable(64) %f) unnamed_addr #1 !dbg !426 {
+define internal noundef zeroext i1 @"<&T as core::fmt::Display>::fmt"({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %self, %"core::fmt::Formatter"* noundef align 8 dereferenceable(64) %f) unnamed_addr #1 !dbg !426 {
 start:
   %f.dbg.spill = alloca %"core::fmt::Formatter"*, align 8
   %self.dbg.spill = alloca { [0 x i8]*, i64 }*, align 8
@@ -688,7 +688,7 @@ start:
   %1 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %self, i32 0, i32 1, !dbg !435
   %_4.1 = load i64, i64* %1, align 8, !dbg !435
 ; call <str as core::fmt::Display>::fmt
-  %2 = call noundef zeroext i1 @"_ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17hb9a135be47760956E"([0 x i8]* noundef nonnull align 1 %_4.0, i64 %_4.1, %"core::fmt::Formatter"* noundef align 8 dereferenceable(64) %f), !dbg !436
+  %2 = call noundef zeroext i1 @"<str as core::fmt::Display>::fmt"([0 x i8]* noundef nonnull align 1 %_4.0, i64 %_4.1, %"core::fmt::Formatter"* noundef align 8 dereferenceable(64) %f), !dbg !436
   br label %bb1, !dbg !436
 
 bb1:                                              ; preds = %start
@@ -703,28 +703,28 @@ declare i32 @rust_eh_personality(i32, i32, i64, %"unwind::libunwind::_Unwind_Exc
 
 ; std::io::stdio::_print
 ; Function Attrs: uwtable
-declare void @_ZN3std2io5stdio6_print17h56750a7b9b0c9427E(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48)) unnamed_addr #1
+declare void @std::io::stdio::_print(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48)) unnamed_addr #1
 
 ; std::rt::lang_start_internal
 ; Function Attrs: uwtable
-declare i64 @_ZN3std2rt19lang_start_internal17h358b6d58e23c88c7E({}* noundef nonnull align 1, [3 x i64]* noundef align 8 dereferenceable(24), i64, i8**) unnamed_addr #1
+declare i64 @std::rt::lang_start_internal({}* noundef nonnull align 1, [3 x i64]* noundef align 8 dereferenceable(24), i64, i8**) unnamed_addr #1
 
 ; core::panicking::panic_fmt
 ; Function Attrs: cold noinline noreturn uwtable
-declare void @_ZN4core9panicking9panic_fmt17h4fe1013b011ef602E(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48), %"core::panic::location::Location"* noundef align 8 dereferenceable(24)) unnamed_addr #4
+declare void @core::panicking::panic_fmt(%"core::fmt::Arguments"* noalias nocapture noundef dereferenceable(48), %"core::panic::location::Location"* noundef align 8 dereferenceable(24)) unnamed_addr #4
 
 ; Function Attrs: argmemonly nofree nounwind willreturn writeonly
 declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i1 immarg) #5
 
 ; <str as core::fmt::Display>::fmt
 ; Function Attrs: uwtable
-declare noundef zeroext i1 @"_ZN42_$LT$str$u20$as$u20$core..fmt..Display$GT$3fmt17hb9a135be47760956E"([0 x i8]* noundef nonnull align 1, i64, %"core::fmt::Formatter"* noundef align 8 dereferenceable(64)) unnamed_addr #1
+declare noundef zeroext i1 @"<str as core::fmt::Display>::fmt"([0 x i8]* noundef nonnull align 1, i64, %"core::fmt::Formatter"* noundef align 8 dereferenceable(64)) unnamed_addr #1
 
 define i32 @main(i32 %0, i8** %1) unnamed_addr #6 {
 top:
   %2 = sext i32 %0 to i64
 ; call std::rt::lang_start
-  %3 = call i64 @_ZN3std2rt10lang_start17h243bee2d0c256238E(void ()* @_ZN9test_rust4main17hd041255a46cdba80E, i64 %2, i8** %1)
+  %3 = call i64 @std::rt::lang_start(void ()* @test_rust::main, i64 %2, i8** %1)
   %4 = trunc i64 %3 to i32
   ret i32 %4
 }
@@ -789,7 +789,7 @@ attributes #7 = { noreturn }
 !45 = !DIEnumerator(name: "Center", value: 2)
 !46 = !DIEnumerator(name: "Unknown", value: 3)
 !47 = !{!0}
-!48 = distinct !DISubprogram(name: "call_once<std::rt::lang_start::{closure_env#0}<()>, ()>", linkageName: "_ZN4core3ops8function6FnOnce40call_once$u7b$$u7b$vtable.shim$u7d$$u7d$17hf6c799f2ba60b89aE", scope: !50, file: !49, line: 227, type: !53, scopeLine: 227, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !60, retainedNodes: !57)
+!48 = distinct !DISubprogram(name: "call_once<std::rt::lang_start::{closure_env#0}<()>, ()>", linkageName: "core::ops::function::FnOnce::call_once{{vtable.shim}}", scope: !50, file: !49, line: 227, type: !53, scopeLine: 227, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !60, retainedNodes: !57)
 !49 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/ops/function.rs", directory: "", checksumkind: CSK_MD5, checksum: "1a40c014f8a7b8b7cd612b461a47e902")
 !50 = !DINamespace(name: "FnOnce", scope: !51)
 !51 = !DINamespace(name: "function", scope: !52)
@@ -805,14 +805,14 @@ attributes #7 = { noreturn }
 !61 = !DITemplateTypeParameter(name: "Self", type: !14)
 !62 = !DITemplateTypeParameter(name: "Args", type: !7)
 !63 = !DILocation(line: 227, column: 5, scope: !48)
-!64 = distinct !DISubprogram(name: "call_once<std::rt::lang_start::{closure_env#0}<()>, ()>", linkageName: "_ZN4core3ops8function6FnOnce9call_once17h9a394708ed00f19bE", scope: !50, file: !49, line: 227, type: !65, scopeLine: 227, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !60, retainedNodes: !67)
+!64 = distinct !DISubprogram(name: "call_once<std::rt::lang_start::{closure_env#0}<()>, ()>", linkageName: "core::ops::function::FnOnce::call_once", scope: !50, file: !49, line: 227, type: !65, scopeLine: 227, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !60, retainedNodes: !67)
 !65 = !DISubroutineType(types: !66)
 !66 = !{!55, !14}
 !67 = !{!68, !69}
 !68 = !DILocalVariable(arg: 1, scope: !64, file: !49, line: 227, type: !14)
 !69 = !DILocalVariable(arg: 2, scope: !64, file: !49, line: 227, type: !7)
 !70 = !DILocation(line: 227, column: 5, scope: !64)
-!71 = distinct !DISubprogram(name: "call_once<fn(), ()>", linkageName: "_ZN4core3ops8function6FnOnce9call_once17he0a8fee5e9bc4b34E", scope: !50, file: !49, line: 227, type: !72, scopeLine: 227, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !77, retainedNodes: !74)
+!71 = distinct !DISubprogram(name: "call_once<fn(), ()>", linkageName: "core::ops::function::FnOnce::call_once", scope: !50, file: !49, line: 227, type: !72, scopeLine: 227, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !77, retainedNodes: !74)
 !72 = !DISubroutineType(types: !73)
 !73 = !{null, !20}
 !74 = !{!75, !76}
@@ -821,7 +821,7 @@ attributes #7 = { noreturn }
 !77 = !{!78, !62}
 !78 = !DITemplateTypeParameter(name: "Self", type: !20)
 !79 = !DILocation(line: 227, column: 5, scope: !71)
-!80 = distinct !DISubprogram(name: "drop_in_place<std::rt::lang_start::{closure_env#0}<()>>", linkageName: "_ZN4core3ptr85drop_in_place$LT$std..rt..lang_start$LT$$LP$$RP$$GT$..$u7b$$u7b$closure$u7d$$u7d$$GT$17h43d1629154544544E", scope: !82, file: !81, line: 188, type: !83, scopeLine: 188, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !87, retainedNodes: !85)
+!80 = distinct !DISubprogram(name: "drop_in_place<std::rt::lang_start::{closure_env#0}<()>>", linkageName: "core::ptr::drop_in_place<std::rt::lang_start<()>::{{closure}}>", scope: !82, file: !81, line: 188, type: !83, scopeLine: 188, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !87, retainedNodes: !85)
 !81 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/ptr/mod.rs", directory: "", checksumkind: CSK_MD5, checksum: "0592540d568e762cd458f12fa2315832")
 !82 = !DINamespace(name: "ptr", scope: !33)
 !83 = !DISubroutineType(types: !84)
@@ -831,7 +831,7 @@ attributes #7 = { noreturn }
 !87 = !{!88}
 !88 = !DITemplateTypeParameter(name: "T", type: !14)
 !89 = !DILocation(line: 188, column: 1, scope: !80)
-!90 = distinct !DISubprogram(name: "is_naked", linkageName: "_ZN9test_rust5Sheep8is_naked17h1b956e419463df68E", scope: !92, file: !91, line: 18, type: !103, scopeLine: 18, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !106)
+!90 = distinct !DISubprogram(name: "is_naked", linkageName: "test_rust::Sheep::is_naked", scope: !92, file: !91, line: 18, type: !103, scopeLine: 18, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !106)
 !91 = !DIFile(filename: "../test/test_data/test_rust.rs", directory: "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/build", checksumkind: CSK_MD5, checksum: "4b8a2a3f8e4edf84ae506ab855e598f5")
 !92 = !DICompositeType(tag: DW_TAG_structure_type, name: "Sheep", scope: !93, file: !2, size: 192, align: 64, elements: !94, templateParams: !23, identifier: "9014723e6fc2dc0aab022cd3301afb7")
 !93 = !DINamespace(name: "test_rust", scope: null)
@@ -853,7 +853,7 @@ attributes #7 = { noreturn }
 !109 = !DILocation(line: 19, column: 9, scope: !90)
 !110 = !{i8 0, i8 2}
 !111 = !DILocation(line: 20, column: 6, scope: !90)
-!112 = distinct !DISubprogram(name: "shear", linkageName: "_ZN9test_rust5Sheep5shear17h17964a275c4cbb8aE", scope: !92, file: !91, line: 22, type: !113, scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !116)
+!112 = distinct !DISubprogram(name: "shear", linkageName: "test_rust::Sheep::shear", scope: !92, file: !91, line: 22, type: !113, scopeLine: 22, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !116)
 !113 = !DISubroutineType(types: !114)
 !114 = !{null, !115}
 !115 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "&mut test_rust::Sheep", baseType: !92, size: 64, align: 64, dwarfAddressSpace: 0)
@@ -867,7 +867,7 @@ attributes #7 = { noreturn }
 !123 = !DILocation(line: 31, column: 6, scope: !112)
 !124 = !DILocation(line: 29, column: 13, scope: !112)
 !125 = !DILocation(line: 23, column: 9, scope: !112)
-!126 = distinct !DISubprogram(name: "new", linkageName: "_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$3new17hb13cfef5428c1bdaE", scope: !127, file: !91, line: 37, type: !128, scopeLine: 37, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !130)
+!126 = distinct !DISubprogram(name: "new", linkageName: "<test_rust::Sheep as test_rust::Animal>::new", scope: !127, file: !91, line: 37, type: !128, scopeLine: 37, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !130)
 !127 = !DINamespace(name: "{impl#1}", scope: !93)
 !128 = !DISubroutineType(types: !129)
 !129 = !{!92, !98}
@@ -876,7 +876,7 @@ attributes #7 = { noreturn }
 !132 = !DILocation(line: 37, column: 12, scope: !126)
 !133 = !DILocation(line: 38, column: 9, scope: !126)
 !134 = !DILocation(line: 39, column: 6, scope: !126)
-!135 = distinct !DISubprogram(name: "name", linkageName: "_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4name17h38fd05a32733abdeE", scope: !127, file: !91, line: 41, type: !136, scopeLine: 41, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !138)
+!135 = distinct !DISubprogram(name: "name", linkageName: "<test_rust::Sheep as test_rust::Animal>::name", scope: !127, file: !91, line: 41, type: !136, scopeLine: 41, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !138)
 !136 = !DISubroutineType(types: !137)
 !137 = !{!98, !105}
 !138 = !{!139}
@@ -884,7 +884,7 @@ attributes #7 = { noreturn }
 !140 = !DILocation(line: 41, column: 13, scope: !135)
 !141 = !DILocation(line: 42, column: 9, scope: !135)
 !142 = !DILocation(line: 43, column: 6, scope: !135)
-!143 = distinct !DISubprogram(name: "noise", linkageName: "_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$5noise17hdd03463da2673b73E", scope: !127, file: !91, line: 45, type: !136, scopeLine: 45, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !144)
+!143 = distinct !DISubprogram(name: "noise", linkageName: "<test_rust::Sheep as test_rust::Animal>::noise", scope: !127, file: !91, line: 45, type: !136, scopeLine: 45, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !144)
 !144 = !{!145}
 !145 = !DILocalVariable(name: "self", arg: 1, scope: !143, file: !91, line: 45, type: !105)
 !146 = !DILocation(line: 45, column: 14, scope: !143)
@@ -893,7 +893,7 @@ attributes #7 = { noreturn }
 !149 = !DILocation(line: 46, column: 9, scope: !143)
 !150 = !DILocation(line: 47, column: 13, scope: !143)
 !151 = !DILocation(line: 51, column: 6, scope: !143)
-!152 = distinct !DISubprogram(name: "talk", linkageName: "_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4talk17h1616a02941476084E", scope: !127, file: !91, line: 54, type: !153, scopeLine: 54, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !155)
+!152 = distinct !DISubprogram(name: "talk", linkageName: "<test_rust::Sheep as test_rust::Animal>::talk", scope: !127, file: !91, line: 54, type: !153, scopeLine: 54, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !155)
 !153 = !DISubroutineType(types: !154)
 !154 = !{null, !105}
 !155 = !{!156}
@@ -902,7 +902,7 @@ attributes #7 = { noreturn }
 !158 = !DILocation(line: 56, column: 9, scope: !152)
 !159 = !DILocation(line: 56, column: 56, scope: !152)
 !160 = !DILocation(line: 57, column: 6, scope: !152)
-!161 = distinct !DISubprogram(name: "main", linkageName: "_ZN9test_rust4main17hd041255a46cdba80E", scope: !93, file: !91, line: 60, type: !21, scopeLine: 60, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagMainSubprogram, unit: !28, templateParams: !23, retainedNodes: !162)
+!161 = distinct !DISubprogram(name: "main", linkageName: "test_rust::main", scope: !93, file: !91, line: 60, type: !21, scopeLine: 60, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition | DISPFlagMainSubprogram, unit: !28, templateParams: !23, retainedNodes: !162)
 !162 = !{!163}
 !163 = !DILocalVariable(name: "dolly", scope: !164, file: !91, line: 62, type: !92, align: 8)
 !164 = distinct !DILexicalBlock(scope: !161, file: !91, line: 62, column: 5)
@@ -913,7 +913,7 @@ attributes #7 = { noreturn }
 !169 = !DILocation(line: 67, column: 5, scope: !164)
 !170 = !DILocation(line: 68, column: 2, scope: !171)
 !171 = !DILexicalBlockFile(scope: !161, file: !91, discriminator: 0)
-!172 = distinct !DISubprogram(name: "black_box<()>", linkageName: "_ZN4core4hint9black_box17h95ff76910fa03c36E", scope: !174, file: !173, line: 173, type: !175, scopeLine: 173, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !179, retainedNodes: !177)
+!172 = distinct !DISubprogram(name: "black_box<()>", linkageName: "core::hint::black_box", scope: !174, file: !173, line: 173, type: !175, scopeLine: 173, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !179, retainedNodes: !177)
 !173 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/hint.rs", directory: "", checksumkind: CSK_MD5, checksum: "bf95e3081dc32061fc222d03331d8091")
 !174 = !DINamespace(name: "hint", scope: !33)
 !175 = !DISubroutineType(types: !176)
@@ -926,7 +926,7 @@ attributes #7 = { noreturn }
 !182 = !DILocation(line: 174, column: 5, scope: !172)
 !183 = !{i32 3186872}
 !184 = !DILocation(line: 175, column: 2, scope: !172)
-!185 = distinct !DISubprogram(name: "to_i32", linkageName: "_ZN3std7process8ExitCode6to_i3217h1ffd091b34e7c8deE", scope: !187, file: !186, line: 1689, type: !198, scopeLine: 1689, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !200)
+!185 = distinct !DISubprogram(name: "to_i32", linkageName: "std::process::ExitCode::to_i32", scope: !187, file: !186, line: 1689, type: !198, scopeLine: 1689, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !200)
 !186 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/std/src/process.rs", directory: "", checksumkind: CSK_MD5, checksum: "ee461ff083257e8efc8b48e1d9bdd68f")
 !187 = !DICompositeType(tag: DW_TAG_structure_type, name: "ExitCode", scope: !188, file: !2, size: 8, align: 8, elements: !189, templateParams: !23, identifier: "bec39850ddc71e69685e2c00f78c81e")
 !188 = !DINamespace(name: "process", scope: !17)
@@ -946,7 +946,7 @@ attributes #7 = { noreturn }
 !202 = !DILocation(line: 1689, column: 19, scope: !185)
 !203 = !DILocation(line: 1690, column: 9, scope: !185)
 !204 = !DILocation(line: 1691, column: 6, scope: !185)
-!205 = distinct !DISubprogram(name: "report", linkageName: "_ZN54_$LT$$LP$$RP$$u20$as$u20$std..process..Termination$GT$6report17hcba6955caa8405d5E", scope: !206, file: !186, line: 2048, type: !207, scopeLine: 2048, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !209)
+!205 = distinct !DISubprogram(name: "report", linkageName: "<() as std::process::Termination>::report", scope: !206, file: !186, line: 2048, type: !207, scopeLine: 2048, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !209)
 !206 = !DINamespace(name: "{impl#50}", scope: !188)
 !207 = !DISubroutineType(types: !208)
 !208 = !{!187, !7}
@@ -955,7 +955,7 @@ attributes #7 = { noreturn }
 !211 = !DILocation(line: 2048, column: 15, scope: !205)
 !212 = !DILocation(line: 2049, column: 9, scope: !205)
 !213 = !DILocation(line: 2050, column: 6, scope: !205)
-!214 = distinct !DISubprogram(name: "report", linkageName: "_ZN68_$LT$std..process..ExitCode$u20$as$u20$std..process..Termination$GT$6report17h4a5b522a2bd5aeaaE", scope: !215, file: !186, line: 2090, type: !216, scopeLine: 2090, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !218)
+!214 = distinct !DISubprogram(name: "report", linkageName: "<std::process::ExitCode as std::process::Termination>::report", scope: !215, file: !186, line: 2090, type: !216, scopeLine: 2090, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !218)
 !215 = !DINamespace(name: "{impl#55}", scope: !188)
 !216 = !DISubroutineType(types: !217)
 !217 = !{!187, !187}
@@ -963,7 +963,7 @@ attributes #7 = { noreturn }
 !219 = !DILocalVariable(name: "self", arg: 1, scope: !214, file: !186, line: 2090, type: !187)
 !220 = !DILocation(line: 2090, column: 15, scope: !214)
 !221 = !DILocation(line: 2092, column: 6, scope: !214)
-!222 = distinct !DISubprogram(name: "lang_start<()>", linkageName: "_ZN3std2rt10lang_start17h243bee2d0c256238E", scope: !16, file: !223, line: 139, type: !224, scopeLine: 139, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !179, retainedNodes: !229)
+!222 = distinct !DISubprogram(name: "lang_start<()>", linkageName: "std::rt::lang_start", scope: !16, file: !223, line: 139, type: !224, scopeLine: 139, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !179, retainedNodes: !229)
 !223 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/std/src/rt.rs", directory: "", checksumkind: CSK_MD5, checksum: "53ba40c54b421907f2e3ab22fb96d5b4")
 !224 = !DISubroutineType(types: !225)
 !225 = !{!226, !20, !226, !227}
@@ -985,7 +985,7 @@ attributes #7 = { noreturn }
 !241 = !DILocation(line: 144, column: 12, scope: !222)
 !242 = !DILocation(line: 144, column: 12, scope: !234)
 !243 = !DILocation(line: 150, column: 2, scope: !222)
-!244 = distinct !DISubprogram(name: "{closure#0}<()>", linkageName: "_ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17hf81abbd01843cabcE", scope: !15, file: !223, line: 145, type: !245, scopeLine: 145, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !179, retainedNodes: !248)
+!244 = distinct !DISubprogram(name: "{closure#0}<()>", linkageName: "std::rt::lang_start::{{closure}}", scope: !15, file: !223, line: 145, type: !245, scopeLine: 145, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !179, retainedNodes: !248)
 !245 = !DISubroutineType(types: !246)
 !246 = !{!55, !247}
 !247 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "&std::rt::lang_start::{closure_env#0}<()>", baseType: !14, size: 64, align: 64, dwarfAddressSpace: 0)
@@ -995,7 +995,7 @@ attributes #7 = { noreturn }
 !251 = !DILocation(line: 145, column: 77, scope: !244)
 !252 = !DILocation(line: 145, column: 18, scope: !244)
 !253 = !DILocation(line: 145, column: 100, scope: !244)
-!254 = distinct !DISubprogram(name: "__rust_begin_short_backtrace<fn(), ()>", linkageName: "_ZN3std10sys_common9backtrace28__rust_begin_short_backtrace17h96dd6635f2fbfd60E", scope: !256, file: !255, line: 118, type: !72, scopeLine: 118, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !262, retainedNodes: !258)
+!254 = distinct !DISubprogram(name: "__rust_begin_short_backtrace<fn(), ()>", linkageName: "std::sys_common::backtrace::__rust_begin_short_backtrace", scope: !256, file: !255, line: 118, type: !72, scopeLine: 118, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !262, retainedNodes: !258)
 !255 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/std/src/sys_common/backtrace.rs", directory: "", checksumkind: CSK_MD5, checksum: "0fa868f8cc86ab35ce9635f981490e7d")
 !256 = !DINamespace(name: "backtrace", scope: !257)
 !257 = !DINamespace(name: "sys_common", scope: !17)
@@ -1012,7 +1012,7 @@ attributes #7 = { noreturn }
 !268 = !DILocation(line: 128, column: 2, scope: !254)
 !269 = !DILocation(line: 128, column: 1, scope: !254)
 !270 = !DILocation(line: 118, column: 1, scope: !254)
-!271 = distinct !DISubprogram(name: "new<&str>", linkageName: "_ZN4core3fmt10ArgumentV13new17h5afc55ecc8f3cf85E", scope: !273, file: !272, line: 326, type: !318, scopeLine: 326, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !327, retainedNodes: !324)
+!271 = distinct !DISubprogram(name: "new<&str>", linkageName: "core::fmt::ArgumentV1::new", scope: !273, file: !272, line: 326, type: !318, scopeLine: 326, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !327, retainedNodes: !324)
 !272 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/fmt/mod.rs", directory: "", checksumkind: CSK_MD5, checksum: "7d486092cd3957d561caa81fafa9cc68")
 !273 = !DICompositeType(tag: DW_TAG_structure_type, name: "ArgumentV1", scope: !41, file: !2, size: 128, align: 64, elements: !274, templateParams: !23, identifier: "bf27cbeede3a5264a55a4b0e65f8b1f8")
 !274 = !{!275, !278}
@@ -1076,7 +1076,7 @@ attributes #7 = { noreturn }
 !332 = !DILocation(line: 335, column: 68, scope: !271)
 !333 = !DILocation(line: 335, column: 18, scope: !271)
 !334 = !DILocation(line: 336, column: 6, scope: !271)
-!335 = distinct !DISubprogram(name: "new_v1", linkageName: "_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E", scope: !336, file: !272, line: 383, type: !394, scopeLine: 383, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !396)
+!335 = distinct !DISubprogram(name: "new_v1", linkageName: "core::fmt::Arguments::new_v1", scope: !336, file: !272, line: 383, type: !394, scopeLine: 383, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !396)
 !336 = !DICompositeType(tag: DW_TAG_structure_type, name: "Arguments", scope: !41, file: !2, size: 384, align: 64, elements: !337, templateParams: !23, identifier: "6590b58b44b185fb6f9f3419375e0986")
 !337 = !{!338, !344, !388}
 !338 = !DIDerivedType(tag: DW_TAG_member, name: "pieces", scope: !336, file: !2, baseType: !339, size: 128, align: 64)
@@ -1149,7 +1149,7 @@ attributes #7 = { noreturn }
 !405 = !DILocation(line: 387, column: 9, scope: !335)
 !406 = !DILocation(line: 388, column: 6, scope: !335)
 !407 = !DILocation(line: 385, column: 13, scope: !335)
-!408 = distinct !DISubprogram(name: "as_i32", linkageName: "_ZN3std3sys4unix7process14process_common8ExitCode6as_i3217hce99c6cbfd6d1a5eE", scope: !191, file: !409, line: 474, type: !410, scopeLine: 474, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !413)
+!408 = distinct !DISubprogram(name: "as_i32", linkageName: "std::sys::unix::process::process_common::ExitCode::as_i32", scope: !191, file: !409, line: 474, type: !410, scopeLine: 474, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !23, retainedNodes: !413)
 !409 = !DIFile(filename: "/rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/std/src/sys/unix/process/process_common.rs", directory: "", checksumkind: CSK_MD5, checksum: "5e4688c341384f05a339f0c879a838d3")
 !410 = !DISubroutineType(types: !411)
 !411 = !{!55, !412}
@@ -1159,7 +1159,7 @@ attributes #7 = { noreturn }
 !415 = !DILocation(line: 474, column: 19, scope: !408)
 !416 = !DILocation(line: 475, column: 9, scope: !408)
 !417 = !DILocation(line: 476, column: 6, scope: !408)
-!418 = distinct !DISubprogram(name: "new_display<&str>", linkageName: "_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E", scope: !273, file: !272, line: 316, type: !419, scopeLine: 316, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !327, retainedNodes: !421)
+!418 = distinct !DISubprogram(name: "new_display<&str>", linkageName: "core::fmt::ArgumentV1::new_display", scope: !273, file: !272, line: 316, type: !419, scopeLine: 316, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !327, retainedNodes: !421)
 !419 = !DISubroutineType(types: !420)
 !420 = !{!273, !320}
 !421 = !{!422}
@@ -1167,7 +1167,7 @@ attributes #7 = { noreturn }
 !423 = !DILocation(line: 316, column: 30, scope: !418)
 !424 = !DILocation(line: 317, column: 13, scope: !418)
 !425 = !DILocation(line: 318, column: 10, scope: !418)
-!426 = distinct !DISubprogram(name: "fmt<str>", linkageName: "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he99fb45e94e8a11cE", scope: !427, file: !272, line: 2128, type: !322, scopeLine: 2128, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !431, retainedNodes: !428)
+!426 = distinct !DISubprogram(name: "fmt<str>", linkageName: "<&T as core::fmt::Display>::fmt", scope: !427, file: !272, line: 2128, type: !322, scopeLine: 2128, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !28, templateParams: !431, retainedNodes: !428)
 !427 = !DINamespace(name: "{impl#54}", scope: !41)
 !428 = !{!429, !430}
 !429 = !DILocalVariable(name: "self", arg: 1, scope: !426, file: !272, line: 2128, type: !320)

@@ -29,7 +29,7 @@ public:
             time_t current_time = time(nullptr);
             char buf[100];
             strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", localtime(&current_time));
-            cout << ANSI_CYAN << buf << ANSI_RESET << ansi_color << "\t[" << level << "]\t" << ANSI_RESET << msg << endl;
+            cerr << ANSI_CYAN << buf << ANSI_RESET << ansi_color << "\t[" << level << "]\t" << ANSI_RESET << msg << endl;
         }
     }
 

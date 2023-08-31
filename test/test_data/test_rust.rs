@@ -1,28 +1,68 @@
-fn main() {
-    let n = 5;
+struct Sheep { naked: bool, name: &'static str }
 
-    if n < 0 {
-        print!("{} is negative", n);
-    } else if n > 0 {
-        print!("{} is positive", n);
-    } else {
-        print!("{} is zero", n);
+trait Animal {
+    // Associated function signature; `Self` refers to the implementor type.
+    fn new(name: &'static str) -> Self;
+
+    // Method signatures; these will return a string.
+    fn name(&self) -> &'static str;
+    fn noise(&self) -> &'static str;
+
+    // Traits can provide default method definitions.
+    fn talk(&self) {
+        println!("{} says {}", self.name(), self.noise());
+    }
+}
+
+impl Sheep {
+    fn is_naked(&self) -> bool {
+        self.naked
     }
 
-    let big_n =
-        if n < 10 && n > -10 {
-            println!(", and is a small number, increase ten-fold");
-
-            // This expression returns an `i32`.
-            10 * n
+    fn shear(&mut self) {
+        if self.is_naked() {
+            // Implementor methods can use the implementor's trait methods.
+            println!("{} is already naked...", self.name());
         } else {
-            println!(", and is a big number, halve the number");
+            println!("{} gets a haircut!", self.name);
 
-            // This expression must return an `i32` as well.
-            n / 2
-            // TODO ^ Try suppressing this expression with a semicolon.
-        };
-    //   ^ Don't forget to put a semicolon here! All `let` bindings need it.
+            self.naked = true;
+        }
+    }
+}
 
-    println!("{} -> {}", n, big_n);
+// Implement the `Animal` trait for `Sheep`.
+impl Animal for Sheep {
+    // `Self` is the implementor type: `Sheep`.
+    fn new(name: &'static str) -> Sheep {
+        Sheep { name: name, naked: false }
+    }
+
+    fn name(&self) -> &'static str {
+        self.name
+    }
+
+    fn noise(&self) -> &'static str {
+        if self.is_naked() {
+            "baaaaah?"
+        } else {
+            "baaaaah!"
+        }
+    }
+    
+    // Default trait methods can be overridden.
+    fn talk(&self) {
+        // For example, we can add some quiet contemplation.
+        println!("{} pauses briefly... {}", self.name, self.noise());
+    }
+}
+
+fn main() {
+    // Type annotation is necessary in this case.
+    let mut dolly: Sheep = Animal::new("Dolly");
+    // TODO ^ Try removing the type annotations.
+
+    dolly.talk();
+    dolly.shear();
+    dolly.talk();
 }

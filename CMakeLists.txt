@@ -46,7 +46,6 @@ FetchContent_Declare(fmt
 )
 FetchContent_MakeAvailable(fmt)
 
-
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 
@@ -57,8 +56,9 @@ add_executable(LLVMSlicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp)
 target_include_directories(LLVMSlicer PRIVATE include)
 llvm_map_components_to_libnames(llvm_libs support core irreader)
 target_link_libraries(LLVMSlicer PRIVATE 
-        ${llvm_libs}
         fmt::fmt
+        ${llvm_libs}
+        ${Boost_INCLUDE_DIRS}
         nlohmann_json::nlohmann_json
 )
 target_link_libraries(LLVMSlicer)

@@ -1,16 +1,20 @@
-#include <utils/Logger.h>
+#include <cctype>
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include <filesystem>
 #include <Extractor.h>
+#include <utils/Logger.h>
 
-#include "llvm/IR/DebugInfoMetadata.h"
-#include "llvm/IR/InstIterator.h"
-#include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
-
-#include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/InstIterator.h"
 #include "llvm/Support/SourceMgr.h"
+#include "llvm/IRReader/IRReader.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/DebugInfoMetadata.h"
 #include "llvm/Support/ErrorHandling.h"
 
-#include "llvm/IRReader/IRReader.h"
 
 #include <fmt/core.h>
 #include <nlohmann/json.hpp>
@@ -18,53 +22,142 @@
 using json = nlohmann::json;
 using namespace std;
 
-std::string getLanguage(const std::string& filename) {
-    std::string extension = filename.substr(filename.find_last_of('.') + 1);
+std::string trim(std::string str) {
+    // Trim whitespaces from start
+    auto ltrim = std::find_if(str.begin(), str.end(), [](unsigned char ch) { return !std::isspace(ch); });
+    str.erase(str.begin(), ltrim);
 
-    if (extension == "c") {
-        return "C";
-    } else if (extension == "cpp" || extension == "cxx" || extension == "cc") {
-        return "C++";
-    } else if (extension == "java") {
-        return "Java";
-    } else if (extension == "go") {
-        return "Go";
-    } else if (extension == "rs") {
-        return "Rust";
-    } else {
-        return "Unknown";
-    }
+    // Trim from end
+    auto rtrim = std::find_if(str.rbegin(), str.rend(), [](unsigned char ch) { return !std::isspace(ch); });
+    str.erase(rtrim.base(), str.end());
+
+    return str;
 }
 
-void extractSourceInfo(const string source, const string llvmir_file)
-{
+std::string getSingleLine(const std::string& filepath, const int lineNo) {
+    std::ifstream file(filepath);
+    std::string line, result;
 
+    if (!file.is_open()) {
+        Logger::error("Failed to open file:", filepath);
+        exit(1);
+    }
+
+    int currentLine = 0;
+    while (std::getline(file, line)) {
+        currentLine++;
+        if (currentLine == lineNo) {
+            result = line;
+        }
+    }
+
+    file.close();
+    return result;
+}
+
+std::string sliceFile(const std::string& filepath, const int startLine, const int endLine) {
+    std::ifstream file(filepath);
+    std::string line, result;
+
+    if (!file.is_open()) {
+        Logger::error("Failed to open file:", filepath);
+        exit(1);
+    }
+
+    int currentLine = 0;
+    while (std::getline(file, line)) {
+        currentLine++;
+        if (currentLine >= startLine && currentLine <= endLine) {
+            result += line + "\n";
+        }
+        if (currentLine > endLine) {
+            break;
+        }
+    }
+
+    file.close();
+    return result;
+}
+
+
+void extractSourceInfo(const string source, const string llvmir_file, const int mode)
+{
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
+    string sourceFileName = filesystem::path(source).filename().string();
+
     auto module = llvm::parseIRFile(llvmir_file, error, context);
 
     if (!module) {
         Logger::error("Error reading", llvmir_file);
     }
 
-    // Set up outer JSON
-    json outer;
-    outer["language"] = getLanguage(source);
+    json fragments = json::array();
 
-    // Initialize fragments
-    outer["fragments"] = json::array();
+    switch (mode) {
+        case 0:
+            // ----[ Loop over every basic block and slice the program accordingly ]----
+        Logger::info("Granularity level is set to Basic Block.");
+        for (const auto &F : *module)
+        {
+            for (const auto &BB : F)
+            {
+                // Get starting and ending locations of the instructions in the basic block
+                const auto startInstrLocation = BB.begin();
+                const auto postLastInstrSentinelLocation = BB.end();
 
-    for (const auto &F : *module)
-    {
-        for (const auto &I : instructions(F)) {
-            const llvm::DILocation *Loc = I.getDebugLoc();
-            llvm::outs() << "IR: " << I << "\n";
-            if (Loc) {
-                llvm::outs() << "Source File: " << Loc->getFilename().str() << "\n";
-                llvm::outs() << "Source Line: " << Loc->getLine() << "\n";
-                llvm::outs() << "Source Column: " << Loc->getColumn() << "\n";
+                const auto endInstrLocation = BB.rbegin();
+                const auto preFirstInstrSentinelLocation = BB.rend();
+
+                // Ensure the basic blocks are non-empty
+                if ((startInstrLocation == postLastInstrSentinelLocation) || (endInstrLocation == preFirstInstrSentinelLocation))
+                    continue;
+
+                if (startInstrLocation->getDebugLoc())
+                {
+                    json j;
+                    int startLine = startInstrLocation->getDebugLoc()->getLine();
+                    int endLine = endInstrLocation->getDebugLoc()->getLine();
+                    std::string code_fragment = sliceFile(source, startLine, endLine);
+                    std::string BBName = BB.getName().str();
+                    std::string ir = "";
+                    // Iterate over every instruction in the basic block and get the IR
+                    llvm::raw_string_ostream rso(ir);
+                    for (const auto &instr : BB)
+                    {
+                        instr.print(rso);
+                        rso << "\n";
+                    }
+
+                    j[BBName] = {code_fragment, trim(ir)};
+                    fragments.push_back(j);
+                }
             }
-            llvm::outs() << "---------------------------------------------\n";
-        }
+            }
+            break;
+        case 1:
+            // ----[ Loop over every instruction in the function ]----
+            Logger::info("Granularity level is set to Instruction.");
+            for (const auto &F : *module)
+            {
+                for (const auto &I : instructions(F)) {
+                    const llvm::DILocation *Loc = I.getDebugLoc();
+                    if (Loc && filesystem::path(Loc->getFilename().str()).filename().string() == sourceFileName) {
+                        std::string IR;
+                        llvm::raw_string_ostream rso(IR);
+                        I.print(rso);
+                        std::string sourceLine = getSingleLine(source, Loc->getLine());
+                        fragments.push_back({trim(sourceLine), trim(IR)});
+                    }
+                }
+            }
+            break;    
+        default:
+            Logger::error("Not implemented, this granularity level has not been implemented.");
+            exit(1);
+            break;
     }
+    std::string prettyJsonString = fragments.dump(4);
+
+    cout << prettyJsonString << endl;
 }
