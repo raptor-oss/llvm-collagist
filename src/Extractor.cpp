@@ -96,7 +96,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
     switch (mode) {
         case 0:
             // ----[ Loop over every basic block and slice the program accordingly ]----
-        Logger::info("Granularity level is set to Basic Block.");
+        Logger::warn("Granularity level is set to Basic Block.");
         for (const auto &F : *module)
         {
             for (const auto &BB : F)
@@ -136,7 +136,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
             break;
         case 1:
             // ----[ Loop over every instruction in the function ]----
-            Logger::info("Granularity level is set to Instruction.");
+            Logger::warn("Granularity level is set to Instruction.");
             for (const auto &F : *module)
             {
                 for (const auto &I : instructions(F)) {
@@ -169,6 +169,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
     if (file.is_open()) {
         file << prettyJsonString;
         file.close();
+        Logger::info(fmt::format("Save output to {}", outputPath.string()));
     } else {
         std::cerr << "Failed to open " << outputPath << " for writing." << std::endl;
     }

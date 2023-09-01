@@ -10,7 +10,7 @@ if(POLICY CMP0135)
 	set(CMAKE_POLICY_DEFAULT_CMP0135 NEW)
 endif()
 
-project(LLVMSlicer)
+project(llvmslicer)
 
 set(LLVM_DIR_PATH "" CACHE STRING "Path to LLVM installation")
 list(APPEND CMAKE_PREFIX_PATH ${LLVM_DIR_PATH})
@@ -54,17 +54,17 @@ add_definitions(${LLVM_DEFINITIONS})
 # Add CLI11 include directory
 include_directories(${cli11_SOURCE_DIR}/include)
 
-add_executable(LLVMSlicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp)
-target_include_directories(LLVMSlicer PRIVATE include)
+add_executable(llvmslicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp)
+target_include_directories(llvmslicer PRIVATE include)
 llvm_map_components_to_libnames(llvm_libs support core irreader)
-target_link_libraries(LLVMSlicer PRIVATE
+target_link_libraries(llvmslicer PRIVATE
         fmt::fmt
         ${llvm_libs}
         ${Boost_INCLUDE_DIRS}
         nlohmann_json::nlohmann_json
 )
-target_link_libraries(LLVMSlicer)
+target_link_libraries(llvmslicer)
 # Install
 set(CMAKE_INSTALL_PREFIX "/usr/local/" CACHE STRING "Path to llvmslicer installation")
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
-install(TARGETS LLVMSlicer DESTINATION bin)
+install(TARGETS llvmslicer DESTINATION bin)

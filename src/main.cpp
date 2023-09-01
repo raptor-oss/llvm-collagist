@@ -18,14 +18,14 @@ int main(int argc, char **argv)
 
     app.add_option("-l, --llvmir", llvmir_file, "The Path to LLVM IR file (*.ll)")->required();
     app.add_option("-s, --source", source_file, "The Path to the original file source langauge")->required();
-    app.add_option("-o, --output", output_file, "The Path to save the generated JSON file.")->default_val("$(PWD)");
+    app.add_option("-o, --output", output_file, "The Path to save the generated JSON file. (Default: $PWD)")->default_val("$(PWD)");
     app.add_option("-i, --abstraction", abstraction, "Slice abstraction. The permitted values are basic block/instruction. (Default \"instruction\")")->default_val("instruction");
 
     // Set the correct path for $PWD
     output_file = output_file == "$(PWD)" ? std::filesystem::current_path().string() : output_file;
 
-    bool verbosity = false;
-    app.add_flag("-v, --verbose", verbosity, "Be verbose? (Default: false)");
+    bool quiet = false;
+    app.add_flag("-q, --quiet", quiet, "Be silent? (Default: false)");
     
     // ----[ Parse arguments ]---- 
     try {
@@ -35,15 +35,18 @@ int main(int argc, char **argv)
     }
 
     // ----[ Setup logging ]----
-    Logger::setVerbosity(verbosity);
-    if (verbosity){
-        Logger::info("Being verbose.");
+    if (quiet)
+        Logger::setVerbosity(false);
+    else {
+        Logger::setVerbosity(true);
+        Logger::warn("Being verbose.");
     }
 
     // ----[ Get the module from the ll file ]----
     int mode = abstraction == "block" ? 0 : 1;
 
-    Logger::info(fmt::format("Source file {} :: LLVMIR file {}", source_file, llvmir_file));
+    Logger::info(fmt::format("Source file {}", source_file));
+    Logger::info(fmt::format("LLVMIR file {}", llvmir_file));
     extractSourceInfo(source_file, llvmir_file, mode, output_file);
     return 0;
 }
