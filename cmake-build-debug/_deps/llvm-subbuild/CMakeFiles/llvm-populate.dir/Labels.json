@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/CMakeFiles/llvm-populate"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/CMakeFiles/llvm-populate.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/CMakeFiles/llvm-populate-complete.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-build.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-configure.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-download.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-install.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-mkdir.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-patch.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-test.rule"
+		},
+		{
+			"file" : "/Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/llvm-subbuild/llvm-populate-prefix/src/llvm-populate-stamp/llvm-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"llvm-populate"
+		],
+		"name" : "llvm-populate"
+	}
+}

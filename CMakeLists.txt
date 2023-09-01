@@ -12,7 +12,9 @@ endif()
 
 project(LLVMSlicer)
 
-# list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/llvm@13/")
+set(LLVM_DIR_PATH "" CACHE STRING "Path to LLVM installation")
+list(APPEND CMAKE_PREFIX_PATH ${LLVM_DIR_PATH})
+
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -21,7 +23,7 @@ find_package(LLVM REQUIRED CONFIG)
 # Add FetchContent
 include(FetchContent)
 
-#  --[ CLI11 for CLI tools ]--
+# --[ CLI11 for CLI tools ]--
 FetchContent_Declare(
         CLI11
         GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
@@ -55,10 +57,14 @@ include_directories(${cli11_SOURCE_DIR}/include)
 add_executable(LLVMSlicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp)
 target_include_directories(LLVMSlicer PRIVATE include)
 llvm_map_components_to_libnames(llvm_libs support core irreader)
-target_link_libraries(LLVMSlicer PRIVATE 
+target_link_libraries(LLVMSlicer PRIVATE
         fmt::fmt
         ${llvm_libs}
         ${Boost_INCLUDE_DIRS}
         nlohmann_json::nlohmann_json
 )
 target_link_libraries(LLVMSlicer)
+# Install
+set(CMAKE_INSTALL_PREFIX "/usr/local/" CACHE STRING "Path to llvmslicer installation")
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
+install(TARGETS LLVMSlicer DESTINATION bin)

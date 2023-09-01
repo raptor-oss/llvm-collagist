@@ -80,8 +80,7 @@ std::string sliceFile(const std::string& filepath, const int startLine, const in
 }
 
 
-void extractSourceInfo(const string source, const string llvmir_file, const int mode)
-{
+void extractSourceInfo(const std::string& source, const std::string& llvmir_file, const int mode, const std::string& outdir) {
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
     string sourceFileName = filesystem::path(source).filename().string();
@@ -155,9 +154,22 @@ void extractSourceInfo(const string source, const string llvmir_file, const int 
         default:
             Logger::error("Not implemented, this granularity level has not been implemented.");
             exit(1);
-            break;
     }
     std::string prettyJsonString = fragments.dump(4);
+    // Save to file
+    // Extract filename without extension
 
-    cout << prettyJsonString << endl;
+    std::filesystem::path sourcePath(source);
+    std::string filename = sourcePath.stem().string();
+
+    std::filesystem::path outputPath(outdir);
+    outputPath /= filename + ".json";
+
+    std::ofstream file(outputPath);
+    if (file.is_open()) {
+        file << prettyJsonString;
+        file.close();
+    } else {
+        std::cerr << "Failed to open " << outputPath << " for writing." << std::endl;
+    }
 }

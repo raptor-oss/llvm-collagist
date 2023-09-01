@@ -1,0 +1,7 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/rkrsn/workspace/raptor-oss/llvm-slicer -B /Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug
+-- Using the multi-header code from /Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug/_deps/json-src/include/
+-- Version: 10.1.1
+-- Build type: Debug
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/rkrsn/workspace/raptor-oss/llvm-slicer/cmake-build-debug

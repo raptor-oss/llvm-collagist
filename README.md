@@ -45,8 +45,14 @@ cd build
 Run CMake to generate the build files and build the project.
 
 ```bash
-cmake ..
+cmake -DLLVM_DIR_PATH="/path/to/your/llvm" -DCMAKE_INSTALL_PREFIX=/path/to/your/installation/directory ..
+# Since I used homebrew my path was "/opt/homebrew/opt/llvm@13/"
+# So, it would be 
 make
+sudo make install 
+# If you can't use sudo, then you can configure cmake as follows:
+cmake -DLLVM_DIR_PATH="/path/to/your/llvm" -DCMAKE_INSTALL_PREFIX="/path/to/your/installation/directory" ..
+# Be sure to add this installation directory to path.
 ```
 
 After successful build, you should see an executable named `LLVMSourceExtractor` inside the `build/` directory.
