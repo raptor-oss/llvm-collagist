@@ -1,0 +1,494 @@
+[
+    [
+        "fn is_naked(&self) -> bool {",
+        "call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !107, metadata !DIExpression()), !dbg !108"
+    ],
+    [
+        "self.naked",
+        "%0 = getelementptr inbounds %Sheep, %Sheep* %self, i32 0, i32 1, !dbg !67"
+    ],
+    [
+        "self.naked",
+        "%1 = load i8, i8* %0, align 8, !dbg !67, !range !68"
+    ],
+    [
+        "self.naked",
+        "%2 = trunc i8 %1 to i1, !dbg !67"
+    ],
+    [
+        "}",
+        "ret i1 %2, !dbg !69"
+    ],
+    [
+        "fn shear(&mut self) {",
+        "call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !117, metadata !DIExpression()), !dbg !118"
+    ],
+    [
+        "if self.is_naked() {",
+        "%_2 = call noundef zeroext i1 @_ZN9test_rust5Sheep8is_naked17h1b956e419463df68E(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !67"
+    ],
+    [
+        "if self.is_naked() {",
+        "br label %bb1, !dbg !67"
+    ],
+    [
+        "if self.is_naked() {",
+        "br i1 %_2, label %bb2, label %bb6, !dbg !67"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%_29 = bitcast %Sheep* %self to { [0 x i8]*, i64 }*, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%0 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_29), !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%_27.0 = extractvalue { i8*, i64* } %0, 0, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%_27.1 = extractvalue { i8*, i64* } %0, 1, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "br label %bb7, !dbg !68"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%1 = call { [0 x i8]*, i64 } @\"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4name17h38fd05a32733abdeE\"(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !69"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "store { [0 x i8]*, i64 } %1, { [0 x i8]*, i64 }* %_16, align 8, !dbg !69"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "br label %bb3, !dbg !69"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%2 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_16), !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%_13.0 = extractvalue { i8*, i64* } %2, 0, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%_13.1 = extractvalue { i8*, i64* } %2, 1, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "br label %bb4, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%3 = bitcast [1 x { i8*, i64* }]* %_12 to { i8*, i64* }*, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%4 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %3, i32 0, i32 0, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "store i8* %_13.0, i8** %4, align 8, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%5 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %3, i32 0, i32 1, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "store i64* %_13.1, i64** %5, align 8, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "%_9.0 = bitcast [1 x { i8*, i64* }]* %_12 to [0 x { i8*, i64* }]*, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "call void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%\"core::fmt::Arguments\"* noalias nocapture noundef sret(%\"core::fmt::Arguments\") dereferenceable(48) %_5, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8] }>* @alloc22 to [0 x { [0 x i8]*, i64 }]*), i64 2, [0 x { i8*, i64* }]* noundef nonnull align 8 %_9.0, i64 1), !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "br label %bb5, !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "call void @_ZN3std2io5stdio6_print17h56750a7b9b0c9427E(%\"core::fmt::Arguments\"* noalias nocapture noundef dereferenceable(48) %_5), !dbg !70"
+    ],
+    [
+        "println!(\"{} is already naked...\", self.name());",
+        "br label %bb10, !dbg !70"
+    ],
+    [
+        "}",
+        "ret void, !dbg !71"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%6 = bitcast [1 x { i8*, i64* }]* %_26 to { i8*, i64* }*, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%7 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %6, i32 0, i32 0, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "store i8* %_27.0, i8** %7, align 8, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%8 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %6, i32 0, i32 1, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "store i64* %_27.1, i64** %8, align 8, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "%_23.0 = bitcast [1 x { i8*, i64* }]* %_26 to [0 x { i8*, i64* }]*, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "call void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%\"core::fmt::Arguments\"* noalias nocapture noundef sret(%\"core::fmt::Arguments\") dereferenceable(48) %_19, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8] }>* @alloc26 to [0 x { [0 x i8]*, i64 }]*), i64 2, [0 x { i8*, i64* }]* noundef nonnull align 8 %_23.0, i64 1), !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "br label %bb8, !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "call void @_ZN3std2io5stdio6_print17h56750a7b9b0c9427E(%\"core::fmt::Arguments\"* noalias nocapture noundef dereferenceable(48) %_19), !dbg !68"
+    ],
+    [
+        "println!(\"{} gets a haircut!\", self.name);",
+        "br label %bb9, !dbg !68"
+    ],
+    [
+        "self.naked = true;",
+        "%9 = getelementptr inbounds %Sheep, %Sheep* %self, i32 0, i32 1, !dbg !72"
+    ],
+    [
+        "self.naked = true;",
+        "store i8 1, i8* %9, align 8, !dbg !72"
+    ],
+    [
+        "if self.is_naked() {",
+        "br label %bb10, !dbg !73"
+    ],
+    [
+        "fn new(name: &'static str) -> Sheep {",
+        "call void @llvm.dbg.declare(metadata { [0 x i8]*, i64 }* %name.dbg.spill, metadata !131, metadata !DIExpression()), !dbg !132"
+    ],
+    [
+        "Sheep { name: name, naked: false }",
+        "%3 = getelementptr inbounds %Sheep, %Sheep* %0, i32 0, i32 1, !dbg !67"
+    ],
+    [
+        "Sheep { name: name, naked: false }",
+        "store i8 0, i8* %3, align 8, !dbg !67"
+    ],
+    [
+        "Sheep { name: name, naked: false }",
+        "%4 = bitcast %Sheep* %0 to { [0 x i8]*, i64 }*, !dbg !67"
+    ],
+    [
+        "Sheep { name: name, naked: false }",
+        "%5 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %4, i32 0, i32 0, !dbg !67"
+    ],
+    [
+        "Sheep { name: name, naked: false }",
+        "store [0 x i8]* %name.0, [0 x i8]** %5, align 8, !dbg !67"
+    ],
+    [
+        "Sheep { name: name, naked: false }",
+        "%6 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %4, i32 0, i32 1, !dbg !67"
+    ],
+    [
+        "Sheep { name: name, naked: false }",
+        "store i64 %name.1, i64* %6, align 8, !dbg !67"
+    ],
+    [
+        "}",
+        "ret void, !dbg !68"
+    ],
+    [
+        "fn name(&self) -> &'static str {",
+        "call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !139, metadata !DIExpression()), !dbg !140"
+    ],
+    [
+        "self.name",
+        "%0 = bitcast %Sheep* %self to { [0 x i8]*, i64 }*, !dbg !68"
+    ],
+    [
+        "self.name",
+        "%1 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 0, !dbg !68"
+    ],
+    [
+        "self.name",
+        "%2 = load [0 x i8]*, [0 x i8]** %1, align 8, !dbg !68, !nonnull !23"
+    ],
+    [
+        "self.name",
+        "%3 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 1, !dbg !68"
+    ],
+    [
+        "self.name",
+        "%4 = load i64, i64* %3, align 8, !dbg !68"
+    ],
+    [
+        "}",
+        "%5 = insertvalue { [0 x i8]*, i64 } undef, [0 x i8]* %2, 0, !dbg !69"
+    ],
+    [
+        "}",
+        "%6 = insertvalue { [0 x i8]*, i64 } %5, i64 %4, 1, !dbg !69"
+    ],
+    [
+        "}",
+        "ret { [0 x i8]*, i64 } %6, !dbg !69"
+    ],
+    [
+        "fn noise(&self) -> &'static str {",
+        "call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !145, metadata !DIExpression()), !dbg !146"
+    ],
+    [
+        "if self.is_naked() {",
+        "%_2 = call noundef zeroext i1 @_ZN9test_rust5Sheep8is_naked17h1b956e419463df68E(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !68"
+    ],
+    [
+        "if self.is_naked() {",
+        "br label %bb1, !dbg !68"
+    ],
+    [
+        "if self.is_naked() {",
+        "br i1 %_2, label %bb2, label %bb3, !dbg !68"
+    ],
+    [
+        "\"baaaaah!\"",
+        "%1 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 0, !dbg !69"
+    ],
+    [
+        "\"baaaaah!\"",
+        "store [0 x i8]* bitcast (<{ [8 x i8] }>* @alloc52 to [0 x i8]*), [0 x i8]** %1, align 8, !dbg !69"
+    ],
+    [
+        "\"baaaaah!\"",
+        "%2 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 1, !dbg !69"
+    ],
+    [
+        "\"baaaaah!\"",
+        "store i64 8, i64* %2, align 8, !dbg !69"
+    ],
+    [
+        "if self.is_naked() {",
+        "br label %bb4, !dbg !70"
+    ],
+    [
+        "\"baaaaah?\"",
+        "%3 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 0, !dbg !71"
+    ],
+    [
+        "\"baaaaah?\"",
+        "store [0 x i8]* bitcast (<{ [8 x i8] }>* @alloc51 to [0 x i8]*), [0 x i8]** %3, align 8, !dbg !71"
+    ],
+    [
+        "\"baaaaah?\"",
+        "%4 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 1, !dbg !71"
+    ],
+    [
+        "\"baaaaah?\"",
+        "store i64 8, i64* %4, align 8, !dbg !71"
+    ],
+    [
+        "if self.is_naked() {",
+        "br label %bb4, !dbg !70"
+    ],
+    [
+        "}",
+        "%5 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 0, !dbg !72"
+    ],
+    [
+        "}",
+        "%6 = load [0 x i8]*, [0 x i8]** %5, align 8, !dbg !72, !nonnull !23"
+    ],
+    [
+        "}",
+        "%7 = getelementptr inbounds { [0 x i8]*, i64 }, { [0 x i8]*, i64 }* %0, i32 0, i32 1, !dbg !72"
+    ],
+    [
+        "}",
+        "%8 = load i64, i64* %7, align 8, !dbg !72"
+    ],
+    [
+        "}",
+        "%9 = insertvalue { [0 x i8]*, i64 } undef, [0 x i8]* %6, 0, !dbg !72"
+    ],
+    [
+        "}",
+        "%10 = insertvalue { [0 x i8]*, i64 } %9, i64 %8, 1, !dbg !72"
+    ],
+    [
+        "}",
+        "ret { [0 x i8]*, i64 } %10, !dbg !72"
+    ],
+    [
+        "fn talk(&self) {",
+        "call void @llvm.dbg.declare(metadata %Sheep** %self.dbg.spill, metadata !156, metadata !DIExpression()), !dbg !157"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%_13 = bitcast %Sheep* %self to { [0 x i8]*, i64 }*, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%0 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_13), !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%_11.0 = extractvalue { i8*, i64* } %0, 0, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%_11.1 = extractvalue { i8*, i64* } %0, 1, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "br label %bb1, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%1 = call { [0 x i8]*, i64 } @\"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$5noise17hdd03463da2673b73E\"(%Sheep* noundef align 8 dereferenceable(24) %self), !dbg !69"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "store { [0 x i8]*, i64 } %1, { [0 x i8]*, i64 }* %_17, align 8, !dbg !69"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "br label %bb2, !dbg !69"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%2 = call { i8*, i64* } @_ZN4core3fmt10ArgumentV111new_display17h58945fcb9e7a94b7E({ [0 x i8]*, i64 }* noundef align 8 dereferenceable(16) %_17), !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%_14.0 = extractvalue { i8*, i64* } %2, 0, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%_14.1 = extractvalue { i8*, i64* } %2, 1, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "br label %bb3, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%3 = bitcast [2 x { i8*, i64* }]* %_10 to { i8*, i64* }*, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%4 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %3, i32 0, i32 0, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "store i8* %_11.0, i8** %4, align 8, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%5 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %3, i32 0, i32 1, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "store i64* %_11.1, i64** %5, align 8, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%6 = getelementptr inbounds [2 x { i8*, i64* }], [2 x { i8*, i64* }]* %_10, i32 0, i32 1, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%7 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %6, i32 0, i32 0, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "store i8* %_14.0, i8** %7, align 8, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%8 = getelementptr inbounds { i8*, i64* }, { i8*, i64* }* %6, i32 0, i32 1, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "store i64* %_14.1, i64** %8, align 8, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "%_7.0 = bitcast [2 x { i8*, i64* }]* %_10 to [0 x { i8*, i64* }]*, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "call void @_ZN4core3fmt9Arguments6new_v117h574d9346f559fef9E(%\"core::fmt::Arguments\"* noalias nocapture noundef sret(%\"core::fmt::Arguments\") dereferenceable(48) %_3, [0 x { [0 x i8]*, i64 }]* noundef nonnull align 8 bitcast (<{ i8*, [8 x i8], i8*, [8 x i8], i8*, [8 x i8] }>* @alloc6 to [0 x { [0 x i8]*, i64 }]*), i64 3, [0 x { i8*, i64* }]* noundef nonnull align 8 %_7.0, i64 2), !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "br label %bb4, !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "call void @_ZN3std2io5stdio6_print17h56750a7b9b0c9427E(%\"core::fmt::Arguments\"* noalias nocapture noundef dereferenceable(48) %_3), !dbg !68"
+    ],
+    [
+        "println!(\"{} pauses briefly... {}\", self.name, self.noise());",
+        "br label %bb5, !dbg !68"
+    ],
+    [
+        "}",
+        "ret void, !dbg !70"
+    ],
+    [
+        "let mut dolly: Sheep = Animal::new(\"Dolly\");",
+        "call void @llvm.dbg.declare(metadata %Sheep* %dolly, metadata !163, metadata !DIExpression()), !dbg !165"
+    ],
+    [
+        "let mut dolly: Sheep = Animal::new(\"Dolly\");",
+        "call void @\"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$3new17hb13cfef5428c1bdaE\"(%Sheep* noalias nocapture noundef sret(%Sheep) dereferenceable(24) %dolly, [0 x i8]* noundef nonnull align 1 bitcast (<{ [5 x i8] }>* @alloc53 to [0 x i8]*), i64 5), !dbg !65"
+    ],
+    [
+        "let mut dolly: Sheep = Animal::new(\"Dolly\");",
+        "br label %bb1, !dbg !65"
+    ],
+    [
+        "dolly.talk();",
+        "call void @\"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4talk17h1616a02941476084E\"(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !66"
+    ],
+    [
+        "dolly.talk();",
+        "br label %bb2, !dbg !66"
+    ],
+    [
+        "dolly.shear();",
+        "call void @_ZN9test_rust5Sheep5shear17h17964a275c4cbb8aE(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !67"
+    ],
+    [
+        "dolly.shear();",
+        "br label %bb3, !dbg !67"
+    ],
+    [
+        "dolly.talk();",
+        "call void @\"_ZN54_$LT$test_rust..Sheep$u20$as$u20$test_rust..Animal$GT$4talk17h1616a02941476084E\"(%Sheep* noundef align 8 dereferenceable(24) %dolly), !dbg !68"
+    ],
+    [
+        "dolly.talk();",
+        "br label %bb4, !dbg !68"
+    ],
+    [
+        "}",
+        "ret void, !dbg !69"
+    ]
+]

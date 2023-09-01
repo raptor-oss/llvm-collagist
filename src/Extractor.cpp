@@ -84,11 +84,14 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
     string sourceFileName = filesystem::path(source).filename().string();
-
-    auto module = llvm::parseIRFile(llvmir_file, error, context);
-
-    if (!module) {
-        Logger::error("Error reading", llvmir_file);
+    std::ifstream irFile(llvmir_file);
+    if (irFile.good()) {
+        llvm::MemoryBufferRef bufferRefIR = llvm::MemoryBuffer::getMemBuffer(llvmir_file)->getMemBufferRef();
+        auto module = llvm::parseIR(bufferRefIR, error, context);
+    }
+    else {
+        Logger::error("IR file is no good :-(");
+        exit(1)
     }
 
     json fragments = json::array();
