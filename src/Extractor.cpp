@@ -85,14 +85,12 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
     llvm::SMDiagnostic error;
     string sourceFileName = filesystem::path(source).filename().string();
     std::ifstream irFile(llvmir_file);
-    if (irFile.good()) {
-        llvm::MemoryBufferRef bufferRefIR = llvm::MemoryBuffer::getMemBuffer(llvmir_file)->getMemBufferRef();
-        auto module = llvm::parseIR(bufferRefIR, error, context);
-    }
-    else {
+    auto bufferOrError = llvm::MemoryBuffer::getFile(llvmir_file);
+    if (!bufferOrError) {
         Logger::error("IR file is no good :-(");
-        exit(1)
+        exit(1);
     }
+    auto module = llvm::parseIR(bufferOrError->get()->getMemBufferRef(), error, context);
 
     json fragments = json::array();
 
@@ -159,21 +157,27 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
             exit(1);
     }
     std::string prettyJsonString = fragments.dump(4);
+
+    // Print on console
+    if (outdir.empty()) {
+        std::cout << prettyJsonString << std::endl;
+    }
     // Save to file
+    else {
     // Extract filename without extension
+        std::filesystem::path sourcePath(source);
+        std::string filename = sourcePath.stem().string();
 
-    std::filesystem::path sourcePath(source);
-    std::string filename = sourcePath.stem().string();
+        std::filesystem::path outputPath(outdir);
+        outputPath /= filename + ".json";
 
-    std::filesystem::path outputPath(outdir);
-    outputPath /= filename + ".json";
-
-    std::ofstream file(outputPath);
-    if (file.is_open()) {
-        file << prettyJsonString;
-        file.close();
-        Logger::info(fmt::format("Save output to {}", outputPath.string()));
-    } else {
-        std::cerr << "Failed to open " << outputPath << " for writing." << std::endl;
+        std::ofstream file(outputPath);
+        if (file.is_open()) {
+            file << prettyJsonString;
+            file.close();
+            Logger::info(fmt::format("Save output to {}", outputPath.string()));
+        } else {
+            std::cerr << "Failed to open " << outputPath << " for writing." << std::endl;
+        }
     }
 }
