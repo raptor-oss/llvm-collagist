@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     app.add_option("-l, --llvmir", llvmir_file, "The Path to LLVM IR file (*.ll)")->required();
     app.add_option("-s, --source", source_file, "The Path to the original file source langauge")->required();
     app.add_option("-o, --output", output_file, "The Path to save the generated JSON file. By default, emit to stdout.")->default_val("");
-    app.add_option("-i, --abstraction", abstraction, "Slice abstraction. The permitted values are basic block/instruction. (Default \"instruction\")")->default_val("instruction");
+    app.add_option("-a, --abstraction", abstraction, "Slice abstraction. The permitted values are block/instruction. (Default \"instruction\")")->default_val("instruction");
 
     // Set the correct path for $PWD
     bool quiet;
