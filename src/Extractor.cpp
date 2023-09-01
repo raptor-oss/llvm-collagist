@@ -95,24 +95,24 @@ std::string sliceFile(const std::string& filepath, const int startLine, const in
 }
 
 
-void extractSourceInfo(const string source, const string llvmir_file, const int mode)
-{
+void extractSourceInfo(const std::string& source, const std::string& llvmir_file, const int mode, const std::string& outdir) {
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
     string sourceFileName = fs::path(source).filename().string();
-
-    auto module = llvm::parseIRFile(llvmir_file, error, context);
-
-    if (!module) {
-        Logger::error("Error reading", llvmir_file);
+    std::ifstream irFile(llvmir_file);
+    auto bufferOrError = llvm::MemoryBuffer::getFile(llvmir_file);
+    if (!bufferOrError) {
+        Logger::error("IR file is no good :-(");
+        exit(1);
     }
+    auto module = llvm::parseIR(bufferOrError->get()->getMemBufferRef(), error, context);
 
     json fragments = json::array();
 
     switch (mode) {
         case 0:
             // ----[ Loop over every basic block and slice the program accordingly ]----
-        Logger::info("Granularity level is set to Basic Block.");
+        Logger::warn("Granularity level is set to Basic Block.");
         for (const auto &F : *module)
         {
             for (const auto &BB : F)
@@ -152,7 +152,7 @@ void extractSourceInfo(const string source, const string llvmir_file, const int 
             break;
         case 1:
             // ----[ Loop over every instruction in the function ]----
-            Logger::info("Granularity level is set to Instruction.");
+            Logger::warn("Granularity level is set to Instruction.");
             for (const auto &F : *module)
             {
                 for (const auto &I : instructions(F)) {
@@ -170,9 +170,29 @@ void extractSourceInfo(const string source, const string llvmir_file, const int 
         default:
             Logger::error("Not implemented, this granularity level has not been implemented.");
             exit(1);
-            break;
     }
     std::string prettyJsonString = fragments.dump(4);
 
-    cout << prettyJsonString << endl;
+    // Print on console
+    if (outdir.empty()) {
+        std::cout << prettyJsonString << std::endl;
+    }
+    // Save to file
+    else {
+    // Extract filename without extension
+        fs::path sourcePath(source);
+        std::string filename = sourcePath.stem().string();
+
+        fs::path outputPath(outdir);
+        outputPath /= filename + ".json";
+
+        std::ofstream file(outputPath);
+        if (file.is_open()) {
+            file << prettyJsonString;
+            file.close();
+            Logger::info(fmt::format("Save output to {}", outputPath.string()));
+        } else {
+            std::cerr << "Failed to open " << outputPath << " for writing." << std::endl;
+        }
+    }
 }
