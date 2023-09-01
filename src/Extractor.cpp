@@ -2,7 +2,22 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
-#include <filesystem>
+
+#ifndef __has_include
+  static_assert(false, "__has_include not supported");
+#else
+#  if __cplusplus >= 201703L && __has_include(<filesystem>)
+#    include <filesystem>
+     namespace fs = std::filesystem;
+#  elif __has_include(<experimental/filesystem>)
+#    include <experimental/filesystem>
+     namespace fs = std::experimental::filesystem;
+#  elif __has_include(<boost/filesystem.hpp>)
+#    include <boost/filesystem.hpp>
+     namespace fs = boost::filesystem;
+#  endif
+#endif
+
 #include <Extractor.h>
 #include <utils/Logger.h>
 
@@ -84,7 +99,7 @@ void extractSourceInfo(const string source, const string llvmir_file, const int 
 {
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
-    string sourceFileName = filesystem::path(source).filename().string();
+    string sourceFileName = fs::path(source).filename().string();
 
     auto module = llvm::parseIRFile(llvmir_file, error, context);
 
@@ -142,7 +157,7 @@ void extractSourceInfo(const string source, const string llvmir_file, const int 
             {
                 for (const auto &I : instructions(F)) {
                     const llvm::DILocation *Loc = I.getDebugLoc();
-                    if (Loc && filesystem::path(Loc->getFilename().str()).filename().string() == sourceFileName) {
+                    if (Loc && fs::path(Loc->getFilename().str()).filename().string() == sourceFileName) {
                         std::string IR;
                         llvm::raw_string_ostream rso(IR);
                         I.print(rso);

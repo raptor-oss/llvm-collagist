@@ -15,6 +15,7 @@ project(LLVMSlicer)
 # list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew/opt/llvm@13/")
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-lstdc++fs -std=c++17")
 
 find_package(LLVM REQUIRED CONFIG)
 
@@ -60,5 +61,6 @@ target_link_libraries(LLVMSlicer PRIVATE
         ${llvm_libs}
         ${Boost_INCLUDE_DIRS}
         nlohmann_json::nlohmann_json
+	stdc++fs
 )
 target_link_libraries(LLVMSlicer)
