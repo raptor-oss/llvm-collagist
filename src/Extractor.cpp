@@ -105,7 +105,14 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
         Logger::error("IR file is no good :-(");
         exit(1);
     }
-    auto module = llvm::parseIR(bufferOrError->get()->getMemBufferRef(), error, context);
+    std::unique_ptr<llvm::Module> module_ptr = llvm::parseIR(bufferOrError->get()->getMemBufferRef(), error, context);
+
+    // if (error.getKind() == llvm::SourceMgr::DiagKind::DK_Error) {
+    //     std::cout << "Line number " << error.getLineNo() << std::endl;
+    //     std::cout << "Column number " << error.getColumnNo() << std::endl;
+    //     std::cout << error.getLineContents().data() << std::endl;
+    //     std::cout << "Error: " << error.getMessage().data() << std::endl;
+    // }
 
     json fragments = json::array();
 
@@ -113,7 +120,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
         case 0:
             // ----[ Loop over every basic block and slice the program accordingly ]----
         Logger::warn("Granularity level is set to Basic Block.");
-        for (const auto &F : *module)
+        for (const auto &F : *module_ptr)
         {
             for (const auto &BB : F)
             {
@@ -143,9 +150,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
                         instr.print(rso);
                         rso << "\n";
                     }
-
-                    j[BBName] = {code_fragment, trim(ir)};
-                    fragments.push_back(j);
+                    fragments.push_back({code_fragment, trim(ir)});
                 }
             }
             }
@@ -153,7 +158,8 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
         case 1:
             // ----[ Loop over every instruction in the function ]----
             Logger::warn("Granularity level is set to Instruction.");
-            for (const auto &F : *module)
+
+            for (const auto &F : *module_ptr)
             {
                 for (const auto &I : instructions(F)) {
                     const llvm::DILocation *Loc = I.getDebugLoc();
@@ -166,7 +172,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
                     }
                 }
             }
-            break;    
+            break;
         default:
             Logger::error("Not implemented, this granularity level has not been implemented.");
             exit(1);
