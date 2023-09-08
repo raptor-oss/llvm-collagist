@@ -99,13 +99,13 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
     string sourceFileName = fs::path(source).filename().string();
-    std::ifstream irFile(llvmir_file);
-    auto bufferOrError = llvm::MemoryBuffer::getFile(llvmir_file);
-    if (!bufferOrError) {
-        Logger::error("IR file is no good :-(");
-        exit(1);
-    }
-    std::unique_ptr<llvm::Module> module_ptr = llvm::parseIR(bufferOrError->get()->getMemBufferRef(), error, context);
+    // auto bufferOrError = llvm::MemoryBuffer::getFile(llvmir_file);
+    // if (!bufferOrError) {
+    //     Logger::error("IR file is no good :-(");
+    //     exit(1);
+    // }
+    // std::unique_ptr<llvm::Module> module_ptr = llvm::parseIR(bufferOrError->get()->getMemBufferRef(), error, context);
+    std::unique_ptr<llvm::Module> module_ptr = llvm::parseIRFile(llvmir_file, error, context);
 
     // if (error.getKind() == llvm::SourceMgr::DiagKind::DK_Error) {
     //     std::cout << "Line number " << error.getLineNo() << std::endl;
