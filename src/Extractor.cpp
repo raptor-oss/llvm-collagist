@@ -19,11 +19,13 @@
 #endif
 
 #include <Extractor.h>
+#include <DebugInfo.h>
 #include <utils/Logger.h>
 
 #include "llvm/IR/Module.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/InstIterator.h"
+#include "llvm/IR/IntrinsicInst.h"
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/IRReader/IRReader.h"
 #include "llvm/Support/raw_ostream.h"
@@ -35,7 +37,7 @@
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
-using namespace std;
+using namespace llvm;
 
 std::string trim(std::string str) {
     // Trim whitespaces from start
@@ -99,12 +101,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
     llvm::LLVMContext context;
     llvm::SMDiagnostic error;
     string sourceFileName = fs::path(source).filename().string();
-    // auto bufferOrError = llvm::MemoryBuffer::getFile(llvmir_file);
-    // if (!bufferOrError) {
-    //     Logger::error("IR file is no good :-(");
-    //     exit(1);
-    // }
-    // std::unique_ptr<llvm::Module> module_ptr = llvm::parseIR(bufferOrError->get()->getMemBufferRef(), error, context);
+
     std::unique_ptr<llvm::Module> module_ptr = llvm::parseIRFile(llvmir_file, error, context);
 
     // if (error.getKind() == llvm::SourceMgr::DiagKind::DK_Error) {
@@ -119,55 +116,86 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
     switch (mode) {
         case 0:
             // ----[ Loop over every basic block and slice the program accordingly ]----
-        Logger::warn("Granularity level is set to Basic Block.");
-        for (const auto &F : *module_ptr)
-        {
-            for (const auto &BB : F)
+            Logger::warn("Granularity level is set to Basic Block.");
+            for (auto &F : *module_ptr)
             {
-                // Get starting and ending locations of the instructions in the basic block
-                const auto startInstrLocation = BB.begin();
-                const auto postLastInstrSentinelLocation = BB.end();
-
-                const auto endInstrLocation = BB.rbegin();
-                const auto preFirstInstrSentinelLocation = BB.rend();
-
-                // Ensure the basic blocks are non-empty
-                if ((startInstrLocation == postLastInstrSentinelLocation) || (endInstrLocation == preFirstInstrSentinelLocation))
-                    continue;
-
-                if (startInstrLocation->getDebugLoc())
+                for (auto &BB : F)
                 {
-                    json j;
-                    int startLine = startInstrLocation->getDebugLoc()->getLine();
-                    int endLine = endInstrLocation->getDebugLoc()->getLine();
-                    std::string code_fragment = sliceFile(source, startLine, endLine);
-                    std::string BBName = BB.getName().str();
-                    std::string ir = "";
-                    // Iterate over every instruction in the basic block and get the IR
-                    llvm::raw_string_ostream rso(ir);
-                    for (const auto &instr : BB)
+                    // Get starting and ending locations of the instructions in the basic block
+                    const auto startInstrLocation = BB.begin();
+                    const auto postLastInstrSentinelLocation = BB.end();
+
+                    const auto endInstrLocation = BB.rbegin();
+                    const auto preFirstInstrSentinelLocation = BB.rend();
+
+                    // Ensure the basic blocks are non-empty
+                    if ((startInstrLocation == postLastInstrSentinelLocation) || (endInstrLocation == preFirstInstrSentinelLocation))
+                        continue;
+
+                    if (startInstrLocation->getDebugLoc())
                     {
-                        instr.print(rso);
-                        rso << "\n";
+                        json j;
+                        int startLine = startInstrLocation->getDebugLoc()->getLine();
+                        int endLine = endInstrLocation->getDebugLoc()->getLine();
+                        std::string code_fragment = sliceFile(source, startLine, endLine);
+                        // std::string BBName = BB.getName().str();
+                        std::string ir = "";
+                        // Iterate over every instruction in the basic block and get the IR
+                        llvm::raw_string_ostream rso(ir);
+                        stripDebugInfoFromBB(BB);
+
+                        for (const auto &instr : BB)
+                        {
+                            instr.print(rso);
+                            rso << "\n";
+                        }
+                        fragments.push_back({code_fragment, trim(ir)});
                     }
-                    fragments.push_back({code_fragment, trim(ir)});
                 }
-            }
             }
             break;
         case 1:
             // ----[ Loop over every instruction in the function ]----
             Logger::warn("Granularity level is set to Instruction.");
 
-            for (const auto &F : *module_ptr)
+            for (auto &F : *module_ptr)
             {
-                for (const auto &I : instructions(F)) {
+                DenseMap<MDNode *, MDNode *> LoopIDsMap;
+
+                for (auto &I : llvm::make_early_inc_range(instructions(F))) {
+
+                    // Ignore statements that are purely for debugging
+                    if (llvm::isa<llvm::DbgInfoIntrinsic>(&I)) {
+                        continue;
+                    }
+
                     const llvm::DILocation *Loc = I.getDebugLoc();
                     if (Loc && fs::path(Loc->getFilename().str()).filename().string() == sourceFileName) {
+                        int line_num = Loc->getLine();
+
+                        // Strip debug info
+                        if (I.getDebugLoc()) {
+                            I.setDebugLoc(llvm::DebugLoc());
+                        }
+                        if (auto *LoopID = I.getMetadata(LLVMContext::MD_loop)) {
+                            auto *NewLoopID = LoopIDsMap.lookup(LoopID);
+                            if (!NewLoopID)
+                                NewLoopID = LoopIDsMap[LoopID] = stripDebugLocFromLoopID(LoopID);
+                            if (NewLoopID != LoopID)
+                                I.setMetadata(LLVMContext::MD_loop, NewLoopID);
+                        }
+                        // Strip other attachments that are or use debug info.
+                        if (I.hasMetadataOtherThanDebugLoc()) {
+                            // Heapallocsites point into the DIType system.
+                            I.setMetadata("heapallocsite", nullptr);
+                            // DIAssignID are debug info metadata primitives.
+                            I.setMetadata(llvm::LLVMContext::MD_DIAssignID, nullptr);
+                        }
+
                         std::string IR;
                         llvm::raw_string_ostream rso(IR);
                         I.print(rso);
-                        std::string sourceLine = getSingleLine(source, Loc->getLine());
+                        std::string sourceLine = getSingleLine(source, line_num);
                         fragments.push_back({trim(sourceLine), trim(IR)});
                     }
                 }

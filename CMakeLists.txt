@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11) 
+cmake_minimum_required(VERSION 3.11)
 
 # Set the policy
 cmake_policy(SET CMP0127 OLD)
@@ -36,7 +36,7 @@ FetchContent_MakeAvailable(CLI11)
 # --[ Read and save JSON ]--
 
 FetchContent_Declare(
-        json 
+        json
         URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
 )
 
@@ -55,7 +55,7 @@ add_definitions(${LLVM_DEFINITIONS})
 # Add CLI11 include directory
 include_directories(${cli11_SOURCE_DIR}/include)
 
-add_executable(llvmslicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp)
+add_executable(llvmslicer src/main.cpp src/Extractor.cpp src/utils/Logger.cpp src/DebugInfo.cpp)
 target_include_directories(llvmslicer PRIVATE include)
 llvm_map_components_to_libnames(llvm_libs support core irreader)
 target_link_libraries(llvmslicer PRIVATE
