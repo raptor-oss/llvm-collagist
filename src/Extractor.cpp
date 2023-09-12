@@ -81,6 +81,19 @@ std::string sliceFile(const std::string& filepath, const int startLine, const in
         exit(1);
     }
 
+    std::string unused;
+    int numLines = 0;
+    while (std::getline(file, unused)) {
+        ++numLines;
+    }
+    file.clear();
+    file.seekg(0);
+
+    // Something is wrong here - attempting to read past the end of the file
+    if (endLine > numLines) {
+        return result;
+    }
+
     int currentLine = 0;
     while (std::getline(file, line)) {
         currentLine++;
@@ -94,6 +107,15 @@ std::string sliceFile(const std::string& filepath, const int startLine, const in
 
     file.close();
     return result;
+}
+
+int getLineNum(DILocation* loc) {
+    if (loc->getInlinedAt()) {
+        return getLineNum(loc->getInlinedAt());
+    }
+    else {
+        return loc->getLine();
+    }
 }
 
 
@@ -119,6 +141,15 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
             Logger::warn("Granularity level is set to Basic Block.");
             for (auto &F : *module_ptr)
             {
+                std::string filename = "";
+                if (F.getSubprogram()) {
+                    if (F.getSubprogram()->getFile()) {
+                        filename = F.getSubprogram()->getFile()->getFilename().str();
+                    }
+                }
+                if (fs::path(filename).filename().string() != sourceFileName)
+                    continue;
+
                 for (auto &BB : F)
                 {
                     // Get starting and ending locations of the instructions in the basic block
@@ -128,23 +159,31 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
                     const auto endInstrLocation = BB.rbegin();
                     const auto preFirstInstrSentinelLocation = BB.rend();
 
-                    int startLine = -1, endLine = -1;
+                    std::string BBName = BB.getName().str();
+
+                    int startLine = 0, endLine = 0;
 
                     // Get the first instruction that has debug info
                     for (auto instr = startInstrLocation; instr != postLastInstrSentinelLocation; instr++) {
                         if(instr->getDebugLoc()) {
-                            startLine = instr->getDebugLoc()->getLine();
+                            startLine = getLineNum(instr->getDebugLoc());
+                            // Line number 0 means it's not possible to assign a source line number to this instruction
+                            if (startLine == 0)
+                                continue;
                             break;
                         }
                     }
                     // And the last instruction that has debug info
                     for (auto instr = endInstrLocation; instr != preFirstInstrSentinelLocation; instr++) {
                         if(instr->getDebugLoc()) {
-                            endLine = instr->getDebugLoc()->getLine();
+                            endLine = getLineNum(instr->getDebugLoc());
+                            // Line number 0 means it's not possible to assign a source line number to this instruction
+                            if (endLine == 0)
+                                continue;
                             break;
                         }
                     }
-                    if ((startLine == -1) || (endLine == -1))
+                    if ((startLine == 0) || (endLine == 0))
                         continue;
 
                     // // Ensure the basic blocks are non-empty
@@ -156,11 +195,8 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
                     // int startLine = startInstrLocation->getDebugLoc()->getLine();
                     // int endLine = endInstrLocation->getDebugLoc()->getLine();
 
-                    // std::cout << "Start: " << startLine << std::endl;
-                    // std::cout << "End: " << endLine << std::endl;
-
                     std::string code_fragment = sliceFile(source, startLine, endLine);
-                    if(code_fragment.length() == 0)
+                    if (code_fragment.length() == 0)
                         continue;
 
                     std::string ir = "";
@@ -182,6 +218,15 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
 
             for (auto &F : *module_ptr)
             {
+                std::string filename = "";
+                if (F.getSubprogram()) {
+                    if (F.getSubprogram()->getFile()) {
+                        filename = F.getSubprogram()->getFile()->getFilename().str();
+                    }
+                }
+                if (fs::path(filename).filename().string() != sourceFileName)
+                    continue;
+
                 DenseMap<MDNode *, MDNode *> LoopIDsMap;
 
                 for (auto &I : llvm::make_early_inc_range(instructions(F))) {
@@ -192,7 +237,7 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
                     }
 
                     const llvm::DILocation *Loc = I.getDebugLoc();
-                    if (Loc && fs::path(Loc->getFilename().str()).filename().string() == sourceFileName) {
+                    if (Loc) {
                         int line_num = Loc->getLine();
 
                         // Strip debug info
