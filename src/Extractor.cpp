@@ -128,29 +128,51 @@ void extractSourceInfo(const std::string& source, const std::string& llvmir_file
                     const auto endInstrLocation = BB.rbegin();
                     const auto preFirstInstrSentinelLocation = BB.rend();
 
-                    // Ensure the basic blocks are non-empty
-                    if ((startInstrLocation == postLastInstrSentinelLocation) || (endInstrLocation == preFirstInstrSentinelLocation))
+                    int startLine = -1, endLine = -1;
+
+                    // Get the first instruction that has debug info
+                    for (auto instr = startInstrLocation; instr != postLastInstrSentinelLocation; instr++) {
+                        if(instr->getDebugLoc()) {
+                            startLine = instr->getDebugLoc()->getLine();
+                            break;
+                        }
+                    }
+                    // And the last instruction that has debug info
+                    for (auto instr = endInstrLocation; instr != preFirstInstrSentinelLocation; instr++) {
+                        if(instr->getDebugLoc()) {
+                            endLine = instr->getDebugLoc()->getLine();
+                            break;
+                        }
+                    }
+                    if ((startLine == -1) || (endLine == -1))
                         continue;
 
-                    if (startInstrLocation->getDebugLoc())
-                    {
-                        json j;
-                        int startLine = startInstrLocation->getDebugLoc()->getLine();
-                        int endLine = endInstrLocation->getDebugLoc()->getLine();
-                        std::string code_fragment = sliceFile(source, startLine, endLine);
-                        // std::string BBName = BB.getName().str();
-                        std::string ir = "";
-                        // Iterate over every instruction in the basic block and get the IR
-                        llvm::raw_string_ostream rso(ir);
-                        stripDebugInfoFromBB(BB);
+                    // // Ensure the basic blocks are non-empty
+                    // if ((startInstrLocation == postLastInstrSentinelLocation) || (endInstrLocation == preFirstInstrSentinelLocation))
+                    //     continue;
+                    // if ( ! (startInstrLocation->getDebugLoc()) )
+                    //     continue;
 
-                        for (const auto &instr : BB)
-                        {
-                            instr.print(rso);
-                            rso << "\n";
-                        }
-                        fragments.push_back({code_fragment, trim(ir)});
+                    // int startLine = startInstrLocation->getDebugLoc()->getLine();
+                    // int endLine = endInstrLocation->getDebugLoc()->getLine();
+
+                    // std::cout << "Start: " << startLine << std::endl;
+                    // std::cout << "End: " << endLine << std::endl;
+
+                    std::string code_fragment = sliceFile(source, startLine, endLine);
+                    if(code_fragment.length() == 0)
+                        continue;
+
+                    std::string ir = "";
+                    // Iterate over every instruction in the basic block and get the IR
+                    llvm::raw_string_ostream rso(ir);
+                    stripDebugInfoFromBB(BB);
+                    for (const auto &instr : BB)
+                    {
+                        instr.print(rso);
+                        rso << "\n";
                     }
+                    fragments.push_back({code_fragment, trim(ir)});
                 }
             }
             break;
